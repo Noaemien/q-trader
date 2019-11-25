@@ -278,7 +278,6 @@ def load_config(config):
 # model.599: 23 Nov SR: 5.99 Kraken: 194186 (epoch ± 600) train 0.75 test 0.25, no buy SL 
         breakout = True
         sell_sl = True
-#        buy_sl = True
         short = True
         leverage = 5
         min_equity = 0.02
@@ -305,7 +304,6 @@ def load_config(config):
     elif conf == 'ETHUSDNN3':
         breakout = True
         sell_sl = True
-#        buy_sl = True
         short = True
         leverage = 5
         min_equity = 0.02
@@ -330,12 +328,7 @@ def load_config(config):
         rsi_period = 14
         model_type = 'runNN1'
         btc_data = True
-#
-# ***************************************** Active Models
-# !!! Do not tune Active models - use new conf for tuning !!!
-# !!! Scaler will be updated when tuning is run 
     elif conf == 'ETHUSDNN':
-#        execute = True
         breakout = True
         sell_sl = True
         buy_sl = True
@@ -356,11 +349,15 @@ def load_config(config):
         limit_fee = 0.0006
         market_fee = 0.0016 + 0.002 # Market fee 0.0016 + slippage 0.2%
         order_type = 'market'
+#
+# ****************** Active Model ************************************************
+# !!! Do not tune Active models - use new conf for tuning !!!
+# !!! Scaler will be updated when tuning is run 
     elif conf == 'ETHUSDNN1':
-# model.603: 17 Nov SR: 5.81 Kraken: 187719 (epoch 189, batch size 1000) train 0.75, test 0.25, no buy SL
+# model.603: 17 Nov SR: 6.07 Kraken: 187719 (epoch 189, batch size 1000) train 0.75, test 0.25, no buy SL
+        execute = True
         breakout = True
         sell_sl = True
-#        buy_sl = True
         short = True
         leverage = 5
         min_equity = 0.02

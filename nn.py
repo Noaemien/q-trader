@@ -602,4 +602,4 @@ def check_missing_dates(td):
 
 # PROD Year SR: 3.61 CCCAGG: 9747, Kraken: 5589
 #runModel('ETHUSDNN')
-runModel('ETHUSDNN1')
+#runModel('ETHUSDNN1')
