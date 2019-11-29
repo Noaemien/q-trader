@@ -356,7 +356,7 @@ def load_config(config):
     elif conf == 'ETHUSDNN1':
 # model.603: 17 Nov SR: 6.07 Kraken: 187719 (epoch 189, batch size 1000) train 0.75, test 0.25, no buy SL
         execute = True
-        breakout = True
+#        breakout = True
         sell_sl = True
         short = True
         leverage = 5
@@ -369,8 +369,8 @@ def load_config(config):
 #        train = True
         train_pct = 0.75
 #        test_pct = 0.25
-#        test_pct = 1
-        test_bars = 365
+        test_pct = 1
+#        test_bars = 365
         units = 32
         epochs = 500
         model = cfgdir+'/model.603'
