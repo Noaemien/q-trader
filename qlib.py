@@ -1,11 +1,4 @@
-# Inspired By: https://classroom.udacity.com/courses/ud501
-# Install Brew: https://brew.sh/
-# Install ta-lib: https://mrjbq7.github.io/ta-lib/install.html
-# Ta Lib Doc: https://github.com/mrjbq7/ta-lib
-# See Also: Implementation using keras-rl library
-# https://www.analyticsvidhya.com/blog/2017/01/introduction-to-reinforcement-learning-implementation/
-# Sell/Buy orders are executed at last day close price
-# Crypto Analysis: https://blog.patricktriest.com/analyzing-cryptocurrencies-python/
+
  
 import pandas as pd
 import numpy as np

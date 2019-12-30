@@ -16,17 +16,17 @@ from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras import backend as K
 from tensorflow.keras.layers import Dense, LSTM, Activation, Dropout
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, QuantileTransformer
-#from keras.callbacks import EarlyStopping
+# from keras.callbacks import EarlyStopping
 from tensorflow.keras.callbacks import ModelCheckpoint
 from tensorflow.keras.optimizers import RMSprop
 from tensorflow.keras.regularizers import l1
 import pandas as pd
 import stats as s
 import datalib as dl
-#from sklearn.externals.joblib import dump, load
 from joblib import dump, load
 from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
+
 
 def get_signal_str(s=''):
     if s == '': s = get_signal()
@@ -41,6 +41,7 @@ def get_signal_str(s=''):
     
     return txt 
 
+
 def get_signal(offset=-1):
     s = td.iloc[offset]
     pnl = round(100*(s.ctrf - 1), 2)
@@ -52,8 +53,8 @@ def get_signal(offset=-1):
             'close':s.close, 'close_ts':s.date_to, 'pnl':pnl, 
             'sl':s.sl, 'sl_price':sl, 'tp':s.tp, 'tp_price':tp}
 
+
 def add_features(ds):
-#    print('*** Adding Features ***')
     ds['VOL'] = ds['volume']/ds['volume'].rolling(window = p.vol_period).mean()
     ds['HH'] = ds['high']/ds['high'].rolling(window = p.hh_period).max() 
     ds['LL'] = ds['low']/ds['low'].rolling(window = p.ll_period).min()
@@ -71,6 +72,7 @@ def add_features(ds):
     ds = ds.dropna()
     
     return ds
+
 
 def get_train_test(X, y):
     # Separate train from test
@@ -96,6 +98,7 @@ def get_train_test(X, y):
         
     return X_train, X_test, y_train, y_test
 
+
 def plot_fit_history(h):
     # Plot model history
     # Accuracy: % of correct predictions 
@@ -109,6 +112,7 @@ def plot_fit_history(h):
     plt.legend()
     plt.grid(True)
     plt.show()
+
 
 def train_model(X_train, X_test, y_train, y_test, file):
     print('*** Training model with '+str(p.units)+' units per layer ***')
@@ -131,7 +135,8 @@ def train_model(X_train, X_test, y_train, y_test, file):
     nn = load_model(file) 
     
     return nn
-    
+
+
 # TODO: Use Long / Short / Cash signals
 def gen_signal(ds, y_pred_val):
     td = ds.copy()
@@ -150,6 +155,7 @@ def gen_signal(ds, y_pred_val):
     td['signal'] = np.where(td.ADX < 26, 'Cash', td.signal)
 
     return td
+
 
 def run_pnl(td, file):
     bt = td[['date','open','high','low','close','volume','signal']].copy()
@@ -233,6 +239,7 @@ def run_pnl(td, file):
 
     return bt
 
+
 def get_stats(ds):
     def my_agg(x):
         names = {
@@ -262,6 +269,7 @@ def get_stats(ds):
     
     return stats, stats_mon
 
+
 def get_stats_mon(ds):
     def my_agg(x):
         names = {
@@ -272,7 +280,8 @@ def get_stats_mon(ds):
         return pd.Series(names)
     
     return ds.groupby(ds['date'].map(lambda x: x.strftime('%m'))).apply(my_agg)    
-    
+
+
 def gen_trades(ds):
     def trade_agg(x):
         names = {
@@ -300,7 +309,8 @@ def gen_trades(ds):
     tr = tr.dropna()
     
     return tr
-    
+
+
 def run_backtest(td, file):
     global stats
     global stats_mon
@@ -325,6 +335,7 @@ def run_backtest(td, file):
     
     return bt
 
+
 def plot_chart(df, title, date_col='date'):
     td = df.dropna().copy()
     td = td.set_index(date_col)
@@ -336,6 +347,7 @@ def plot_chart(df, title, date_col='date'):
     plt.grid(True)
     plt.title(title)
     plt.show()
+
 
 def show_stats(td, trades):
     avg_loss = 1 - trades[trades.win == False].sr.mean()
@@ -363,6 +375,7 @@ def show_stats(td, trades):
     print('Sharpe Ratio: %.2f' % sr)
     print('Average Daily Return: %.3f' % adr)
     print('SL: %.2f TP: %.2f' % (slf, tpf))
+
 
 # Inspired by:
 # https://www.quantinsti.com/blog/artificial-neural-network-python-using-keras-predicting-stock-price-movement/
@@ -583,6 +596,7 @@ def check_retro():
     print(rtd.DR.prod())
     print((len(rtd[rtd.y_pred.astype('int') == rtd.Price_Rise])/len(rtd)))
 
+
 def check_missing_dates(td):
     from datetime import timedelta
     date_set = set(td.date.iloc[0] + timedelta(x) for x in range((td.date.iloc[-1] - td.date.iloc[0]).days))
@@ -591,15 +605,15 @@ def check_missing_dates(td):
 
 
 # Tuning
-#runModel('BTCUSDNN')
-#runModel('ETHBTCNN')
+# runModel('BTCUSDNN')
+# runModel('ETHBTCNN')
 # Using ETHBTC data
-#runModel('ETHUSDNN3')
+# runModel('ETHUSDNN3')
 
 # Best SR / Less Sortino / Worse on Kraken Data
-#runModel('ETHUSDNN2')
+# runModel('ETHUSDNN2')
 
 
 # PROD Year SR: 3.61 CCCAGG: 9747, Kraken: 5589
-#runModel('ETHUSDNN')
-#runModel('ETHUSDNN1')
+# runModel('ETHUSDNN')
+runModel('ETHUSDNN1')

@@ -1,4 +1,12 @@
 # q-trader
+# Inspired By: https://classroom.udacity.com/courses/ud501
+# Install Brew: https://brew.sh/
+# Install ta-lib: https://mrjbq7.github.io/ta-lib/install.html
+# Ta Lib Doc: https://github.com/mrjbq7/ta-lib
+# See Also: Implementation using keras-rl library
+# https://www.analyticsvidhya.com/blog/2017/01/introduction-to-reinforcement-learning-implementation/
+# Sell/Buy orders are executed at last day close price
+# Crypto Analysis: https://blog.patricktriest.com/analyzing-cryptocurrencies-python/
 
 # https://linuxacademy.com/blog/amazon-web-services-2/deploying-a-containerized-flask-application-with-aws-ecs-and-docker/
 # Install AWS CLI for Mac
@@ -21,6 +29,9 @@ export AWS_REGION=You AWS  Region
 
 
 ****************************** Improvement Ideas *********************************************
+# AWS SageMaker POC
+https://towardsdatascience.com/building-fully-custom-machine-learning-models-on-aws-sagemaker-a-practical-guide-c30df3895ef7
+
 Backtrader: https://www.backtrader.com/docu/
 
 # Bitfinex Integration
@@ -93,8 +104,6 @@ https://support.kraken.com/hc/en-us/articles/203053246-Other-order-options
 Use first hours data to predict DR
 Ensemble
 Remove Duplicate Data
-
-# Bitfinex Integration
 
 # Self Learning Quant
 https://hackernoon.com/the-self-learning-quant-d3329fcc9915

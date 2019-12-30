@@ -8,14 +8,16 @@ Created on Mon Dec 25 20:40:08 2017
 
 import math
 
+
 def truncate(n, digits):
     return math.trunc(n*(10**digits))/(10**digits)
+
 
 def load_config(config):
     global conf
     conf = config
     global random_scale
-    random_scale = 0.00001 # Defines standard deviation for random Q values 
+    random_scale = 0.00001  # Defines standard deviation for random Q values
     global start_balance
     start_balance = 1.0
     global short
