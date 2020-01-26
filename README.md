@@ -1,4 +1,7 @@
 # q-trader
+
+[Install Python](https://opensource.com/article/19/5/python-3-default-mac)
+
 # Inspired By: https://classroom.udacity.com/courses/ud501
 # Install Brew: https://brew.sh/
 # Install ta-lib: https://mrjbq7.github.io/ta-lib/install.html
@@ -29,6 +32,14 @@ export AWS_REGION=You AWS  Region
 
 
 ****************************** Improvement Ideas *********************************************
++ Hourly trading
++ 2% risk
++ Tested Trading Strategy
++ Multiple simple alphas
++ For each alpha calculate metrics like avg win, avg loss, win ratio, loss ratio
++ Combine alphas and calculate total ratios
++ Set sl, tp and position size according to total metrics
+
 # AWS SageMaker POC
 https://towardsdatascience.com/building-fully-custom-machine-learning-models-on-aws-sagemaker-a-practical-guide-c30df3895ef7
 

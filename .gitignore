@@ -4,3 +4,4 @@ mysecrets.py
 *.log
 *.pkl
 .ipynb_checkpoints
+.idea

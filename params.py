@@ -291,8 +291,8 @@ def load_config(config):
 #        train = True
         train_pct = 0.75
 #        test_pct = 0.25
-        test_pct = 1
-#        test_bars = 365
+#        test_pct = 1
+        test_bars = 365
         units = 32
         epochs = 1000
         model = cfgdir+'/model.599'
@@ -319,8 +319,8 @@ def load_config(config):
         test_pct = 0.25
 #        test_pct = 1
 #        test_bars = 365
-        units = 32
-        epochs = 1000
+        units = 16
+        epochs = 500
 #        model = cfgdir+'/model.nn'
         limit_fee = 0.0006
         market_fee = 0.0016 + 0.002 # Market fee 0.0016 + slippage 0.2%
@@ -329,8 +329,10 @@ def load_config(config):
         signal_scale = 100
         rsi_period = 14
         model_type = 'runNN1'
-        btc_data = True
+#        btc_data = True
+#        adjust_signal = False
     elif conf == 'ETHUSDNN':
+        execute = True
         breakout = True
         sell_sl = True
         buy_sl = True
@@ -343,7 +345,7 @@ def load_config(config):
         kraken_pair = 'XETHZUSD'
         reload = True
 #        train = True
-#        test_pct = 1
+#         test_pct = 1
         test_bars = 365
         units = 32
         epochs = 20
@@ -357,9 +359,9 @@ def load_config(config):
 # !!! Scaler will be updated when tuning is run 
     elif conf == 'ETHUSDNN1':
 # model.603: 17 Nov SR: 6.07 Kraken: 187719 (epoch 189, batch size 1000) train 0.75, test 0.25, no buy SL
-        execute = True
-#        breakout = True
+#         breakout = True
         sell_sl = True
+        # buy_sl = True
         short = True
         leverage = 5
         min_equity = 0.02
@@ -368,13 +370,13 @@ def load_config(config):
         datasource = 'kr'
         kraken_pair = 'XETHZUSD'
         reload = True
-#        train = True
+        # train = True
         train_pct = 0.75
-#        test_pct = 0.25
-        test_pct = 1
-#        test_bars = 365
+        # test_pct = 0.25
+        # test_pct = 1
+        test_bars = 365
         units = 32
-        epochs = 500
+        epochs = 50
         model = cfgdir+'/model.603'
         limit_fee = 0.0006
         market_fee = 0.0016 + 0.002 # Market fee + slippage%

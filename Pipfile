@@ -1,0 +1,22 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+pandas = "==0.25.0"
+pandas-datareader = "==0.7.4"
+matplotlib = "==3.1.0"
+requests = "==2.22.0"
+ccxt = "==1.18.120"
+tensorflow = "==1.14.0"
+scikit-learn = "==0.21.3"
+python-telegram-bot = "==11.1.0"
+cfscrape = "==1.9.5"
+TA-Lib = "==0.4.17"
+Quandl = "==3.4.5"
+
+[requires]
+python_version = "3.7"
