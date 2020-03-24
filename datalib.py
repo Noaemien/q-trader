@@ -246,3 +246,10 @@ def get_ret(df):
 def normalize(df):
     return df/df.iloc[0]
 
+
+def loglog():
+    p.load_config('ETHUSDNN')
+    p.datasource = 'cc'
+    ds = load_data()
+    ds['days'] = ds.date - ds.date.iloc[0]
+    ds.plot(x='days', y='close', loglog=True)

@@ -39,6 +39,9 @@ export AWS_REGION=You AWS  Region
 + For each alpha calculate metrics like avg win, avg loss, win ratio, loss ratio
 + Combine alphas and calculate total ratios
 + Set sl, tp and position size according to total metrics
++ Buy: MACD Slow > 0, Parabolic Buy Sell: MACD Slow < 0, Parabolic Sell
+
+# Sagemaker AutoPilot
 
 # AWS SageMaker POC
 https://towardsdatascience.com/building-fully-custom-machine-learning-models-on-aws-sagemaker-a-practical-guide-c30df3895ef7

@@ -600,7 +600,7 @@ def check_missing_dates(td):
 # Best SR / Less Sortino / Worse on Kraken Data
 #runModel('ETHUSDNN2')
 
+# runModel('ETHUSDNN1')
 
 # PROD Year SR: 3.61 CCCAGG: 9747, Kraken: 5589
 # runModel('ETHUSDNN')
-# runModel('ETHUSDNN1')
