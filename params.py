@@ -368,7 +368,7 @@ def load_config(config):
         sell_sl = True
         buy_sl = True
         short = True
-        leverage = 5
+        leverage = 2
         min_equity = 0.02
         order_precision = 0
         exchange = 'KRAKEN'
@@ -383,7 +383,7 @@ def load_config(config):
         model = cfgdir+'/model.215'
         limit_fee = 0.0006
         market_fee = 0.0016 + 0.002 # Market fee 0.0016 + slippage 0.2%
-        order_type = 'market'
+        # order_type = 'market'
 
     if order_type == 'market':
         limit_fee = market_fee

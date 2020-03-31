@@ -40,6 +40,7 @@ export AWS_REGION=You AWS  Region
 + Combine alphas and calculate total ratios
 + Set sl, tp and position size according to total metrics
 + Buy: MACD Slow > 0, Parabolic Buy Sell: MACD Slow < 0, Parabolic Sell
++ Distribute orders according to order book distribution (buy or sell depending on signal)
 
 # Sagemaker AutoPilot
 
