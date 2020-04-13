@@ -213,16 +213,14 @@ def runNN1():
     ds['MAR'] = ds.MA/ds.MA2
     ds['ADX'] = talib.ADX(ds['high'].values, ds['low'].values, ds['close'].values, timeperiod = p.adx_period)
     ds['Price_Rise'] = np.where(ds['DR'] > 1, 1, 0)
-
+    
     if p.btc_data:
         p.currency = 'BTC'
         p.kraken_pair = 'XETHXXBT'
         ds1 = dl.load_data()
         ds = ds.join(ds1, rsuffix='_btc')
-        ds['RSI_BTC'] = talib.RSI(ds['close_btc'].values, timeperiod=p.rsi_period)
-        ds['BTC/ETH'] = ds['close'] / ds['close_btc']
-        p.feature_list += ['RSI_BTC', 'BTC/ETH']
-
+        ds['RSI_BTC'] = talib.RSI(ds['close_btc'].values, timeperiod = p.rsi_period)
+        p.feature_list += ['RSI_BTC']
     
     ds = ds.dropna()
 
@@ -305,12 +303,85 @@ def runNN1():
     print(str(get_signal_str()))
 
 
+# See: 
+# https://towardsdatascience.com/predicting-ethereum-prices-with-long-short-term-memory-lstm-2a5465d3fd
+def runLSTM():
+    global ds
+    global td
+
+    ds = dl.load_data()
+    ds = add_features(ds)
+   
+    lag = 3
+    n_features = 1
+    X = pd.DataFrame()
+    for i in range(1, lag+1):
+        X['RSI'+str(i)] = ds['RSI'].shift(i)
+#        X['MA'+str(i)] = ds['MA'].shift(i)
+#        X['VOL'+str(i)] = ds['VOL'].shift(i)
+    X = X.dropna()
+    
+    y = ds['DR']
+
+    X_train, X_test, y_train, y_test = get_train_test(X, y) 
+
+    X_train_t = X_train.reshape(X_train.shape[0], lag, n_features)
+    X_test_t = X_test.reshape(X_test.shape[0], lag, n_features)
+
+    file = p.model
+    if p.train:
+        file = p.cfgdir+'/model.nn'
+        nn = Sequential()
+        nn.add(LSTM(p.units, input_shape=(X_train_t.shape[1], X_train_t.shape[2]), return_sequences=True))
+        nn.add(Dropout(0.2))
+        nn.add(LSTM(p.units, return_sequences=False))
+        nn.add(Dense(1))
+        
+        optimizer = RMSprop(lr=0.005, clipvalue=1.)
+#        optimizer = 'adam'
+        nn.compile(loss=p.loss, optimizer=optimizer)
+        
+        cp = ModelCheckpoint(file, monitor='val_loss', verbose=0, save_best_only=True, mode='min')
+        h = nn.fit(X_train_t, y_train, batch_size = 10, epochs = p.epochs, 
+                             verbose=0, callbacks=[cp], validation_data=(X_test_t, y_test))
+
+        plot_fit_history(h)
+    
+    # Load Best Model
+    nn = load_model(file)
+
+    y_pred = nn.predict(X_test_t)    
+    td = gen_signal(ds, y_pred)
+
+    # Backtesting
+    td = bt.run_backtest(td, file)
+    
+    print(str(get_signal_str()))
+
+
 def runModel(conf):
     p.load_config(conf)
     globals()[p.model_type]()
         
 
+def check_missing_dates(td):
+    from datetime import timedelta
+    date_set = set(td.date.iloc[0] + timedelta(x) for x in range((td.date.iloc[-1] - td.date.iloc[0]).days))
+    missing = sorted(date_set - set(td.date))
+    print(missing)
+
+
+# Tuning
+#runModel('BTCUSDNN')
+#runModel('ETHBTCNN')
+# Using ETHBTC data
+#runModel('ETHUSDNN3')
+
+# Best SR / Less Sortino / Worse on Kraken Data
+#runModel('ETHUSDNN2')
+
+# runModel('ETHUSDNN1')
+
 # PROD Year SR: 3.61 CCCAGG: 9747, Kraken: 5589
-# runModel('ETHUSDNN')
-runModel('ETHUSDNN1')
-# ds.to_csv('ds.csv')
+runModel('ETHUSDNN')
+ds.to_csv('ds.csv')

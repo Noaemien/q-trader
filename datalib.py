@@ -253,3 +253,14 @@ def loglog():
     ds = load_data()
     ds['days'] = ds.date - ds.date.iloc[0]
     ds.plot(x='days', y='close', loglog=True)
+
+
+def load_ticker(ticker):
+    p.load_config('ETHUSDNN')
+    p.ticker = ticker
+    ds = load_data_cc()
+    ds.to_csv('./data/'+ticker+'.csv')
+
+
+# load_ticker('ETH')
+# load_ticker('BTC')

@@ -10,7 +10,7 @@ import params as p
 from concurrent.futures import ProcessPoolExecutor
 from functools import partial
 import datalib as dl
-import trade as t
+from research import trade as t
 import exchange as ex
 
 # Init Q table with small random values

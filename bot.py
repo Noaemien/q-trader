@@ -14,6 +14,7 @@ import time
 import params as p
 import ccxt
 
+
 def send(msg, public=False):
     print(msg)
     t.send_msg(str(msg), public)

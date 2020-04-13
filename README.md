@@ -31,6 +31,10 @@ export AWS_REGION=You AWS  Region
 ./deploy.sh
 
 
+# Position Sizing: classifier NN / Pyramiding: Last N signals buys % / RL
+
+# SageMaker DeepAR: https://github.com/aws-samples/amazon-sagemaker-stock-prediction
+
 ****************************** Improvement Ideas *********************************************
 + Hourly trading
 + 2% risk
@@ -41,8 +45,13 @@ export AWS_REGION=You AWS  Region
 + Set sl, tp and position size according to total metrics
 + Buy: MACD Slow > 0, Parabolic Buy Sell: MACD Slow < 0, Parabolic Sell
 + Distribute orders according to order book distribution (buy or sell depending on signal)
++ Use Variable Moving Average: https://cointelegraph.com/news/is-technical-trading-in-cryptocurrency-markets-profitable
 
-# Sagemaker AutoPilot
+
+Tutorials:
+https://medium.com/@huangkh19951228/predicting-cryptocurrency-price-with-tensorflow-and-keras-e1674b0dc58a
+https://towardsdatascience.com/cryptocurrency-price-prediction-using-deep-learning-70cfca50dd3a
+https://medium.com/datadriveninvestor/predicting-cryptocurrency-prices-with-machine-learning-1b5a711d3937
 
 # AWS SageMaker POC
 https://towardsdatascience.com/building-fully-custom-machine-learning-models-on-aws-sagemaker-a-practical-guide-c30df3895ef7
