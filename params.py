@@ -336,9 +336,9 @@ def load_config(config):
     # !!! Scaler will be updated when tuning is run
     elif conf == 'ETHUSDNN1':
         execute = True
-        breakout = True
-        sell_sl = True
-        buy_sl = True
+        # breakout = True
+        # sell_sl = True
+        # buy_sl = True
         short = True
         leverage = 2
         min_equity = 0.02
@@ -357,8 +357,11 @@ def load_config(config):
         batch_size = 100
         # 13 April: Epoch: 80 (approx), batch size 100, train 0.8, test 0.2, CC data
         model = cfgdir+'/model.786'
-        limit_fee = 0.0006
-        market_fee = 0.0016 + 0.002 # Market fee + slippage%
+        # Estimated fee including slippage and margin
+        order_type = 'market'
+        limit_fee = 0.002
+        market_fee = 0.004
+        margin = 0  # Margin fee is included in estimated fee
         signal_threshold = 1
         signal_scale = 100
         model_type = 'runNN1'
@@ -383,9 +386,11 @@ def load_config(config):
         units = 32
         epochs = 20
         model = cfgdir+'/model.215'
-        limit_fee = 0.0006
-        market_fee = 0.0016 + 0.002 # Market fee 0.0016 + slippage 0.2%
         # order_type = 'market'
+        # Estimated fees including slippage and margin
+        limit_fee = 0.002
+        market_fee = 0.004
+        margin = 0  # Margin fee is included in estimated fee
 
     if order_type == 'market':
         limit_fee = market_fee
