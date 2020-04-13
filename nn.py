@@ -312,5 +312,5 @@ def runModel(conf):
 
 # PROD Year SR: 3.61 CCCAGG: 9747, Kraken: 5589
 # runModel('ETHUSDNN')
-runModel('ETHUSDNN1')
+# runModel('ETHUSDNN1')
 # ds.to_csv('ds.csv')

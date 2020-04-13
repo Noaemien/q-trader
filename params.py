@@ -331,7 +331,11 @@ def load_config(config):
         model_type = 'runNN1'
 #        btc_data = True
 #        adjust_signal = False
+    # ****************** Active Models ************************************************
+    # !!! Do not tune Active models - use new conf for tuning !!!
+    # !!! Scaler will be updated when tuning is run
     elif conf == 'ETHUSDNN1':
+        execute = True
         breakout = True
         sell_sl = True
         buy_sl = True
@@ -355,17 +359,12 @@ def load_config(config):
         model = cfgdir+'/model.786'
         limit_fee = 0.0006
         market_fee = 0.0016 + 0.002 # Market fee + slippage%
-        order_type = 'limit'
         signal_threshold = 1
         signal_scale = 100
         model_type = 'runNN1'
         btc_data = True
         feature_list = ['VOL','HH','LL','DR','MA','MA2','STD','RSI','WR','DMA','MAR']
-    # ****************** Active Model ************************************************
-    # !!! Do not tune Active models - use new conf for tuning !!!
-    # !!! Scaler will be updated when tuning is run
     elif conf == 'ETHUSDNN':
-        execute = True
         breakout = True
         sell_sl = True
         buy_sl = True
@@ -378,9 +377,9 @@ def load_config(config):
         kraken_pair = 'XETHZUSD'
         reload = True
 #        train = True
-        test_pct = 1
+#         test_pct = 1
 #         test_pct = 0.2
-#         test_bars = 365
+        test_bars = 365
         units = 32
         epochs = 20
         model = cfgdir+'/model.215'
