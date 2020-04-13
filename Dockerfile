@@ -1,4 +1,4 @@
-FROM python:3.6.7-slim-stretch
+FROM python:3.7-slim-stretch
 
 RUN apt-get update && apt-get -y install curl build-essential && apt-get clean
 # Install TA-lib
@@ -17,6 +17,7 @@ WORKDIR /q-trader
 
 # Install any needed packages specified in requirements.txt
 COPY requirements.txt /q-trader
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt --no-cache-dir
 
 # Copy the current directory contents into the container at /app
