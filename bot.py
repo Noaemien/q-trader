@@ -87,8 +87,8 @@ def run(conf):
         except Exception as e:
             send('An error has occured. Please investigate!')
             send(e)
-            done = True
-    
+            raise
+
         
 def test_execute():
     conf = 'ETHUSDNN'

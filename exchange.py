@@ -17,6 +17,7 @@ import time
 import params as p
 import mysecrets as s
 
+# TODO: move this to init() method
 ex = ccxt.kraken({
 #    'verbose': True,    
     'apiKey': s.exchange_api_key,
@@ -79,15 +80,15 @@ def get_ticker():
 
 def get_balance(asset=''):
     if asset == '': asset = p.currency
-    balance = ex.fetch_balance()['free']
+    balance = ex.fetch_balance()['total']
     return balance[asset]
 
 def get_balance_str():
-    balance = ex.fetch_balance()['free']
+    balance = ex.fetch_balance()['total']
     return p.currency+': '+str(balance[p.currency])+', '+p.ticker+': '+str(balance[p.ticker])
 
 def get_total_value():
-    bal = ex.fetch_balance()['free']
+    bal = ex.fetch_balance()['total']
     amt = 0
     for c in bal:
         if c == 'USD' or bal[c] == 0: price = 1
@@ -246,7 +247,7 @@ def test_order1():
     print(dir(ex))
     
     # Buy
-    ex.fetch_balance()['free']
+    ex.fetch_balance()['total']
     # Close SL Order
     cancel_orders()
     
