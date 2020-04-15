@@ -31,6 +31,16 @@ export AWS_REGION=You AWS  Region
 ./deploy.sh
 
 
+# Upgrade ccxt library
+# BUG: Initialize exchange in bot, not in import
+
+
+# Deep Q-Learning for trading & position sizing
+https://www.groundai.com/project/deep-reinforcement-learning-for-trading/1
+https://alphaarchitect.com/2020/02/26/reinforcement-learning-for-trading/
+https://towardsdatascience.com/a-blundering-guide-to-making-a-deep-actor-critic-bot-for-stock-trading-c3591f7e29c2
+https://www.youtube.com/watch?v=_O4T5Vjmgeo
+
 # Position Sizing: classifier NN / Pyramiding: Last N signals buys % / RL
 
 # SageMaker DeepAR: https://github.com/aws-samples/amazon-sagemaker-stock-prediction

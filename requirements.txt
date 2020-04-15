@@ -2,7 +2,7 @@ pandas==0.25.0
 pandas-datareader==0.7.4
 matplotlib==3.1.0
 requests==2.22.0
-ccxt==1.18.120
+ccxt==1.26.43
 tensorflow==2.1.0
 keras==2.3.1
 scikit-learn==0.21.3
