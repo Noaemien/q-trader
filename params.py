@@ -341,7 +341,7 @@ def load_config(config):
         # breakout = True
         # sell_sl = True
         # buy_sl = True
-        short = True
+        # short = True
         leverage = 2
         min_equity = 0.02
         order_precision = 0
