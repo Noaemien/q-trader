@@ -177,6 +177,8 @@ def load_config(config):
     batch_size = 0
     global btc_data # Use asset price in BTC for model
     btc_data = False
+    global position_sizing
+    position_sizing = False
 
     if conf == 'BTCUSD': # R: 180.23 SR: 0.180 QL/BH R: 6.79 QL/BH SR: 1.80
 #        train = True
@@ -361,7 +363,6 @@ def load_config(config):
         order_type = 'market'
         limit_fee = 0.002
         market_fee = 0.004
-        margin = 0  # Margin fee is included in estimated fee
         signal_threshold = 1
         signal_scale = 100
         model_type = 'runNN1'
@@ -386,11 +387,10 @@ def load_config(config):
         units = 32
         epochs = 20
         model = cfgdir+'/model.215'
-        # order_type = 'market'
+        order_type = 'market'
         # Estimated fees including slippage and margin
         limit_fee = 0.002
         market_fee = 0.004
-        margin = 0  # Margin fee is included in estimated fee
 
     if order_type == 'market':
         limit_fee = market_fee

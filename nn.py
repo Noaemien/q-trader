@@ -63,6 +63,7 @@ def add_features(ds):
     ds['DMA'] = ds.MA/ds.MA.shift(1)
     ds['MAR'] = ds.MA/ds.MA2
     ds['ADX'] = talib.ADX(ds['high'].values, ds['low'].values, ds['close'].values, timeperiod = p.adx_period)
+    ds['ATR'] = talib.ATR(ds['high'].values, ds['low'].values, ds['close'].values, timeperiod=14)
     ds['Price_Rise'] = np.where(ds['DR'] > 1, 1, 0)
 
     ds = ds.dropna()
@@ -212,18 +213,19 @@ def runNN1():
     ds['DMA'] = ds.MA/ds.MA.shift(1)
     ds['MAR'] = ds.MA/ds.MA2
     ds['ADX'] = talib.ADX(ds['high'].values, ds['low'].values, ds['close'].values, timeperiod = p.adx_period)
+    ds['ATR'] = talib.ATR(ds['high'].values, ds['low'].values, ds['close'].values, timeperiod=14)
     ds['Price_Rise'] = np.where(ds['DR'] > 1, 1, 0)
 
     if p.btc_data:
-        p.currency = 'BTC'
+        pair = p.kraken_pair
         p.kraken_pair = 'XETHXXBT'
         ds1 = dl.load_data()
+        p.kraken_pair = pair
         ds = ds.join(ds1, rsuffix='_btc')
         ds['RSI_BTC'] = talib.RSI(ds['close_btc'].values, timeperiod=p.rsi_period)
         ds['BTC/ETH'] = ds['close'] / ds['close_btc']
         p.feature_list += ['RSI_BTC', 'BTC/ETH']
 
-    
     ds = ds.dropna()
 
     # Separate input from output. Exclude last row
@@ -313,4 +315,4 @@ def runModel(conf):
 # PROD Year SR: 3.61 CCCAGG: 9747, Kraken: 5589
 # runModel('ETHUSDNN')
 # runModel('ETHUSDNN1')
-# ds.to_csv('ds.csv')
+# td.to_csv('td.csv')

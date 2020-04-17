@@ -31,17 +31,22 @@ export AWS_REGION=You AWS  Region
 ./deploy.sh
 
 
-# Upgrade ccxt library
+# Use pipenv for install and execution
+
 # BUG: Initialize exchange in bot, not in import
 
+# Position Sizing: classifier NN / Pyramiding: Last N signals buys % / RL
+ATR Rule: % of Balance = Price * Account Risk % / ATR * k
+Where k is Stop Loss in ATR
+https://leighdrogen.com/position-sizing-is-everything-c6076ee7f44
+https://www.dukascopy.com/fxcomm/fx-article-contest/?How-To-Calculate-Position-Sizing=&action=read&id=1070&mob=0
+http://thepatternsite.com/MoneyMgmt.html
 
 # Deep Q-Learning for trading & position sizing
 https://www.groundai.com/project/deep-reinforcement-learning-for-trading/1
 https://alphaarchitect.com/2020/02/26/reinforcement-learning-for-trading/
 https://towardsdatascience.com/a-blundering-guide-to-making-a-deep-actor-critic-bot-for-stock-trading-c3591f7e29c2
 https://www.youtube.com/watch?v=_O4T5Vjmgeo
-
-# Position Sizing: classifier NN / Pyramiding: Last N signals buys % / RL
 
 # SageMaker DeepAR: https://github.com/aws-samples/amazon-sagemaker-stock-prediction
 

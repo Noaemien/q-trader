@@ -120,7 +120,7 @@ def show_stats(td, trades):
 
 
 def run_pnl(td, file):
-    bt = td[['date', 'open', 'high', 'low', 'close', 'volume', 'signal']].copy()
+    bt = td[['date', 'open', 'high', 'low', 'close', 'volume', 'signal', 'ATR']].copy()
 
     # Calculate Pivot Points
     bt['PP'] = (bt.high + bt.low + bt.close) / 3
@@ -164,8 +164,9 @@ def run_pnl(td, file):
     if p.short: bt['ctr'] = np.where(bt.signal == 'Sell', 2 - bt.close_price / bt.open_price, bt.ctr)
     # Breakout: Buy if SL is triggered for Sell trade
     if p.breakout: bt['ctr'] = np.where((bt.signal == 'Sell') & bt.sl, bt.ctr * (bt.close / bt.sl_price), bt.ctr)
+    if p.position_sizing: bt['ctr'] = (bt['ctr'] - 1)*bt.open_price*0.04/bt.ATR + 1
 
-    # Margin Calculation. Assuming marging is used for short trades only
+    # Margin Calculation. Assuming margin is used for short trades only
     bt['margin'] = 0
     if p.short:
         bt['margin'] = np.where(bt['signal'] == 'Sell', p.margin, bt.margin)
