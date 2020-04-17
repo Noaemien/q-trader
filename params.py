@@ -360,7 +360,7 @@ def load_config(config):
         # 13 April: Epoch: 80 (approx), batch size 100, train 0.8, test 0.2, CC data
         model = cfgdir+'/model.786'
         # Estimated fee including slippage and margin
-        order_type = 'market'
+        # order_type = 'market'
         limit_fee = 0.002
         market_fee = 0.004
         signal_threshold = 1
