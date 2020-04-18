@@ -283,7 +283,6 @@ def load_config(config):
         breakout = True
         sell_sl = True
         short = True
-        leverage = 5
         min_equity = 0.02
         order_precision = 0
         exchange = 'KRAKEN'
@@ -309,7 +308,6 @@ def load_config(config):
         breakout = True
         sell_sl = True
         short = True
-        leverage = 5
         min_equity = 0.02
         order_precision = 0
         exchange = 'KRAKEN'
@@ -340,9 +338,8 @@ def load_config(config):
         execute = True
         # breakout = True
         # sell_sl = True
-        # buy_sl = True
+        buy_sl = True
         # short = True
-        leverage = 2
         min_equity = 0.02
         order_precision = 0
         exchange = 'KRAKEN'
@@ -373,7 +370,6 @@ def load_config(config):
         sell_sl = True
         buy_sl = True
         short = True
-        leverage = 2
         min_equity = 0.02
         order_precision = 0
         exchange = 'KRAKEN'
