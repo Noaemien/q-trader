@@ -366,10 +366,10 @@ def load_config(config):
         btc_data = True
         feature_list = ['VOL','HH','LL','DR','MA','MA2','STD','RSI','WR','DMA','MAR']
     elif conf == 'ETHUSDNN':
-        breakout = True
-        sell_sl = True
+        # breakout = True
+        # sell_sl = True
         buy_sl = True
-        short = True
+        # short = True
         min_equity = 0.02
         order_precision = 0
         exchange = 'KRAKEN'
@@ -383,7 +383,7 @@ def load_config(config):
         units = 32
         epochs = 20
         model = cfgdir+'/model.215'
-        order_type = 'market'
+        # order_type = 'market'
         # Estimated fees including slippage and margin
         limit_fee = 0.002
         market_fee = 0.004
@@ -399,4 +399,3 @@ def load_config(config):
     tl = cfgdir+'/tl.pkl'
     print('')
     print('**************** Loaded Config for '+conf+' ****************')
-
