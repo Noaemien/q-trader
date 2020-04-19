@@ -1,3 +1,6 @@
+# Generate Requirements
+pipenv lock --requirements > requirements.txt
+
 # Remove old images
 docker image prune -f
 docker image rm -f $AWS_ECR_URL

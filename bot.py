@@ -84,10 +84,6 @@ def run(conf):
             send('Network Error has occured. Retrying ...')
             send(e)
             time.sleep(p.sleep_interval)
-        except Exception as e:
-            send('An error has occured. Please investigate!')
-            send(e)
-            raise
 
         
 def test_execute():
@@ -111,9 +107,15 @@ def test_execute():
 #run('BTCUSDNN')
 
 # Trading
-t.init()
-send('*** Old Model *** ', True)
-run('ETHUSDNN')
-send('*** New Model *** ', True)
-run('ETHUSDNN1')
-t.cleanup()
+try:
+    t.init()
+    send('*** Old Model *** ', True)
+    run('ETHUSDNN')
+    send('*** New Model *** ', True)
+    run('ETHUSDNN1')
+except Exception as e:
+    send('An error has occurred. Please investigate!')
+    send(e)
+    raise
+finally:
+    t.cleanup()
