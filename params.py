@@ -333,6 +333,7 @@ def load_config(config):
 #        adjust_signal = False
     # ****************** Active Models ************************************************
     # !!! Do not tune Active models - use new conf for tuning !!!
+    # !!! DO NOT trade Short unless you want to get REKT !!!
     # !!! Scaler will be updated when tuning is run
     elif conf == 'ETHUSDNN1':
         execute = True

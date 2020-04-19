@@ -8,7 +8,7 @@ Created on Thu Oct 25 17:47:41 2018
 
 import nn
 import tele as t
-import exchange as x
+import exchange as ex
 import datetime as dt
 import time
 import params as p
@@ -31,12 +31,13 @@ def get_signal(conf):
             return signal
 
 
-def send_results(res, msg):
+def send_results(x, res, msg):
     send(msg+' of '+str(res['filled'])+' '+p.pair+' with price '+str(res['average']))
     send('Balance: '+x.get_balance_str())
 
 
 def execute(s):
+    x = ex.Exchange()
     action = s['action']
     position = x.get_position()    
     is_open = (position == 'Buy' or position == 'Sell' and p.short)
@@ -47,14 +48,14 @@ def execute(s):
     # Close position if new trade
     if is_open and action != position:
         res = x.close_position(position, s['open'])
-        send_results(res, 'Closed '+position+' Position')
+        send_results(x, res, 'Closed '+position+' Position')
         is_open = False
     
     # TODO: Open position with SL/TP and no wait
     # TODO: Handle partly open position
     if not is_open and (action == 'Buy' or action == 'Sell' and p.short):
         res = x.open_position(action, s['open'])
-        send_results(res, 'Opened '+action+' Position')
+        send_results(x, res, 'Opened '+action+' Position')
         is_open = True
 
     """ SL/TP can only be set AFTER order is executed if margin is not used """

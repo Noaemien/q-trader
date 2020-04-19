@@ -31,9 +31,9 @@ export AWS_REGION=You AWS  Region
 ./deploy.sh
 
 
-# Use pipenv for install and execution
-
+****************************** Improvement Ideas *********************************************
 # BUG: Initialize exchange in bot, not in import
+Create Exchange object
 
 # Feature Selection
 Parabolic
@@ -53,7 +53,6 @@ https://www.youtube.com/watch?v=_O4T5Vjmgeo
 
 # SageMaker DeepAR: https://github.com/aws-samples/amazon-sagemaker-stock-prediction
 
-****************************** Improvement Ideas *********************************************
 + Hourly trading
 + 2% risk
 + Tested Trading Strategy
@@ -388,6 +387,8 @@ Do not trade when no trend (ADX)
 
 
 # ********************** Lessons Learned *************************************
+Trade Long Only. Short brings losses. 
+
 Trading on Mercury Retrograde brings a lot of fakeouts and glitches. Must be avoided.
 
 Always follow the plan. Keep limit order until it is filled
