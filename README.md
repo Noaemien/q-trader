@@ -35,6 +35,9 @@ export AWS_REGION=You AWS  Region
 
 # BUG: Initialize exchange in bot, not in import
 
+# Feature Selection
+Parabolic
+
 # Position Sizing: classifier NN / Pyramiding: Last N signals buys % / RL
 ATR Rule: % of Balance = Price * Account Risk % / ATR * k
 Where k is Stop Loss in ATR

@@ -1,6 +1,5 @@
-FROM python:3.7-slim-stretch
+FROM tensorflow/tensorflow:latest-py3
 
-RUN apt-get update && apt-get -y install curl build-essential && apt-get clean
 # Install TA-lib
 RUN curl -L http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz | \
   tar xzvf - && \
@@ -8,7 +7,8 @@ RUN curl -L http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz | 
   sed -i "s|0.00000001|0.000000000000000001 |g" src/ta_func/ta_utility.h && \
   ./configure && make && make install && \
   cd .. && rm -rf ta-lib
-ENV LD_LIBRARY_PATH /usr/local/lib
+
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 
 # Prepare environment
 RUN mkdir /q-trader
