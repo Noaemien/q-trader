@@ -40,8 +40,8 @@ class Exchange:
         })
         self.ex.load_markets()
 
-    # Returns day open price
-    def get_price(self, item='open'):
+    # Returns current price
+    def get_price(self, item='last'):
         ticker = self.ex.fetch_ticker(p.pair)
         return ticker[item]
 

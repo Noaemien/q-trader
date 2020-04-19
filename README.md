@@ -32,9 +32,6 @@ export AWS_REGION=You AWS  Region
 
 
 ****************************** Improvement Ideas *********************************************
-# BUG: Initialize exchange in bot, not in import
-Create Exchange object
-
 # Feature Selection
 Parabolic
 
