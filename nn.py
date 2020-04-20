@@ -17,7 +17,6 @@ from keras.layers import Dense, LSTM, Activation, Dropout
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, QuantileTransformer
 from keras.callbacks import ModelCheckpoint, EarlyStopping
 from keras.optimizers import RMSprop
-import pandas as pd
 import datalib as dl
 from joblib import dump, load
 from pandas.plotting import register_matplotlib_converters

@@ -33,7 +33,11 @@ export AWS_REGION=You AWS  Region
 
 ****************************** Improvement Ideas *********************************************
 # Feature Selection
-Parabolic
+
+# Execution Strategy
++ Divide order to 24 chunks and place them with day open price 
++ If chunk is not filled within 1 hour - move it to last market price
++ If chunk is not filled again after 1 hour - execute it as market order
 
 # Position Sizing: classifier NN / Pyramiding: Last N signals buys % / RL
 ATR Rule: % of Balance = Price * Account Risk % / ATR * k
@@ -58,6 +62,7 @@ https://www.youtube.com/watch?v=_O4T5Vjmgeo
 + Combine alphas and calculate total ratios
 + Set sl, tp and position size according to total metrics
 + Buy: MACD Slow > 0, Parabolic Buy Sell: MACD Slow < 0, Parabolic Sell
++ Parabolic
 + Distribute orders according to order book distribution (buy or sell depending on signal)
 + Use Variable Moving Average: https://cointelegraph.com/news/is-technical-trading-in-cryptocurrency-markets-profitable
 
