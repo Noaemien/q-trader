@@ -19,11 +19,11 @@ import quandl
 import numpy as np
 
 
-def load_data_cc():
+def load_data_cc(ticker, currency):
     retry = True
     while retry: # This is to avoid issue when only 31 rows are returned
         r = requests.get('https://min-api.cryptocompare.com/data/histo'+p.bar_period
-                         +'?fsym='+p.ticker+'&tsym='+p.currency
+                         +'?fsym='+ticker+'&tsym='+currency
                          +'&allData=true&e='+p.exchange
                          +'&api_key='+s.cryptocompare_key)
         df = pd.DataFrame(r.json()['Data'])
@@ -35,18 +35,26 @@ def load_data_cc():
     
     return df
 
-def load_data_kr():
-    url = 'https://api.kraken.com/0/public/OHLC?pair='+p.kraken_pair+'&interval=1440'
-    df = pd.DataFrame(requests.get(url).json()['result'][p.kraken_pair])
+
+def load_data_kr(ticker, currency):
+    pairs = {
+        'ETHUSD': 'XETHZUSD',
+        'BTCUSD': 'XXBTZUSD',
+        'ETHBTC': 'XETHXXBT'
+    }
+    pair = pairs[ticker+currency]
+    url = 'https://api.kraken.com/0/public/OHLC?pair='+pair+'&interval=1440'
+    df = pd.DataFrame(requests.get(url).json()['result'][pair])
     df.columns = ['time','open','high','low','close','vwap','volume','count']
     df = df[['time','open','high','low','close','volume']]
     df = df.apply(pd.to_numeric)
     
     return df
 
+
 # Load Historical Price Data from Cryptocompare
 # API Guide: https://medium.com/@agalea91/cryptocompare-api-quick-start-guide-ca4430a484d4
-def load_data():
+def load_data(ticker, currency):
     now = dt.datetime.today().strftime('%Y-%m-%d')
     if (not p.reload) and os.path.isfile(p.file): 
         df = pickle.load(open(p.file, "rb" ))
@@ -55,8 +63,8 @@ def load_data():
             print('Using loaded prices for ' + now)
             return df
     
-    if p.datasource == 'cc': df = load_data_cc()
-    elif p.datasource == 'kr': df = load_data_kr()
+    if p.datasource == 'cc': df = load_data_cc(ticker, currency)
+    elif p.datasource == 'kr': df = load_data_kr(ticker, currency)
     else: print('Invalid Data Source: '+p.datasource) 
 
     df = df.set_index('time')
@@ -65,7 +73,7 @@ def load_data():
 
     os.makedirs(os.path.dirname(p.file), exist_ok=True)
     pickle.dump(df, open(p.file, "wb" ))
-    print('Loaded prices from '+p.exchange+' via '+p.datasource
+    print('Loaded '+ticker+currency+' prices from '+p.exchange+' via '+p.datasource
           +' Rows:'+str(len(df))+' Date:'+str(df.date.iloc[-1]))
     print('Last complete '+p.bar_period+' close: '+str(df.close.iloc[-2]))
 

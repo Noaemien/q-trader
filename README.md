@@ -32,6 +32,16 @@ export AWS_REGION=You AWS  Region
 
 
 ****************************** Improvement Ideas *********************************************
+BUG: CC Data for BTC is incorrect
+
+# Deep Q-Learning for trading & position sizing
+https://github.com/lefnire/tforce_btc_trader
+https://github.com/druce/rl/blob/master/Trading%20with%20RL.ipynb
+https://www.youtube.com/watch?v=_O4T5Vjmgeo
+https://www.groundai.com/project/deep-reinforcement-learning-for-trading/1
+https://alphaarchitect.com/2020/02/26/reinforcement-learning-for-trading/
+https://towardsdatascience.com/a-blundering-guide-to-making-a-deep-actor-critic-bot-for-stock-trading-c3591f7e29c2
+
 # Feature Selection
 
 # Execution Strategy
@@ -45,12 +55,6 @@ Where k is Stop Loss in ATR
 https://leighdrogen.com/position-sizing-is-everything-c6076ee7f44
 https://www.dukascopy.com/fxcomm/fx-article-contest/?How-To-Calculate-Position-Sizing=&action=read&id=1070&mob=0
 http://thepatternsite.com/MoneyMgmt.html
-
-# Deep Q-Learning for trading & position sizing
-https://www.groundai.com/project/deep-reinforcement-learning-for-trading/1
-https://alphaarchitect.com/2020/02/26/reinforcement-learning-for-trading/
-https://towardsdatascience.com/a-blundering-guide-to-making-a-deep-actor-critic-bot-for-stock-trading-c3591f7e29c2
-https://www.youtube.com/watch?v=_O4T5Vjmgeo
 
 # SageMaker DeepAR: https://github.com/aws-samples/amazon-sagemaker-stock-prediction
 
@@ -105,7 +109,6 @@ http://etfhq.com/blog/2010/10/09/frama-is-it-effective/#Best
 # http://www.newtraderu.com/wp-content/uploads/2011/11/turtlerules.pdf
 # Trade multiple coins based on relative strength
 
-# Migrate to pipenv
 
 # Test model on S&P500 / NASDAQ / Bitcoin
 # Strategy: Buy when price is above weekly PSAR (0.008, 0.2). Sell when price is below

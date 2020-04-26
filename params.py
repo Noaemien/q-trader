@@ -165,8 +165,6 @@ def load_config(config):
     model_type = 'runNN'
     global price_precision # Number of decimals for price
     price_precision = 2
-    global kraken_pair # Name of pair in Kraken. Used for fetching price data from Kraken
-    kraken_pair = ''
     global breakout # Use Breakout strategy
     breakout = False
     global signal_scale # Used for signal grouping by y_pred_id 
@@ -250,7 +248,6 @@ def load_config(config):
         feature_list = ['MA','MA2']
         exchange = 'KRAKEN'
         datasource = 'kr'
-        kraken_pair = 'XETHXXBT'
         reload = True
 #        train = True
 #        test_bars = 272
@@ -269,7 +266,6 @@ def load_config(config):
         short = True
         datasource = 'kr'
         exchange = 'KRAKEN'
-        kraken_pair = 'XXBTZUSD'
         reload = True
 #        train = True
 #        test_pct = 1
@@ -279,59 +275,34 @@ def load_config(config):
         model = cfgdir+'/model.top'
         limit_fee = 0.0008 # Maker
     elif conf == 'ETHUSDNN2':
-# model.599: 23 Nov SR: 5.99 Kraken: 194186 (epoch ± 600) train 0.75 test 0.25, no buy SL 
-        breakout = True
-        sell_sl = True
-        short = True
+        # breakout = True
+        # sell_sl = True
+        buy_sl = True
+        # short = True
         min_equity = 0.02
         order_precision = 0
         exchange = 'KRAKEN'
-        datasource = 'kr'
-        kraken_pair = 'XETHZUSD'
-        reload = True
-#        train = True
-        train_pct = 0.75
-#        test_pct = 0.25
-#        test_pct = 1
-        test_bars = 365
-        units = 32
-        epochs = 1000
-        model = cfgdir+'/model.599'
-        limit_fee = 0.0006
-        market_fee = 0.0016 + 0.002 # Market fee 0.0016 + slippage 0.2%
-        order_type = 'market'
-        signal_threshold = 1
-        signal_scale = 100
-        rsi_period = 14
-        model_type = 'runNN1'
-    elif conf == 'ETHUSDNN3':
-        breakout = True
-        sell_sl = True
-        short = True
-        min_equity = 0.02
-        order_precision = 0
-        exchange = 'KRAKEN'
-#        datasource = 'kr'
-#        kraken_pair = 'XETHZUSD'
+        # datasource = 'kr'
         reload = True
         train = True
-        train_pct = 0.75
-        test_pct = 0.25
-#        test_pct = 1
-#        test_bars = 365
-        units = 16
-        epochs = 500
-#        model = cfgdir+'/model.nn'
-        limit_fee = 0.0006
-        market_fee = 0.0016 + 0.002 # Market fee 0.0016 + slippage 0.2%
+        train_pct = 0.8
+        test_pct = 0.2
+        # test_pct = 1
+        # test_bars = 365
+        units = 32
+        epochs = 200
+        batch_size = 100
+        model = cfgdir + '/model.nn'
+        # Estimated fee including slippage and margin
         order_type = 'market'
+        limit_fee = 0.002
+        market_fee = 0.004
         signal_threshold = 1
         signal_scale = 100
-        rsi_period = 14
         model_type = 'runNN1'
-#        btc_data = True
-#        adjust_signal = False
-    # ****************** Active Models ************************************************
+        btc_data = True
+        feature_list = ['VOL', 'HH', 'LL', 'DR', 'MA', 'MA2', 'STD', 'RSI', 'WR', 'DMA', 'MAR']
+# ****************** Active Models ************************************************
     # !!! Do not tune Active models - use new conf for tuning !!!
     # !!! DO NOT trade Short unless you want to get REKT !!!
     # !!! Scaler will be updated when tuning is run
@@ -344,8 +315,8 @@ def load_config(config):
         min_equity = 0.02
         order_precision = 0
         exchange = 'KRAKEN'
+        # Kraken data on CC is different from Kraken Exchange
         datasource = 'kr'
-        kraken_pair = 'XETHZUSD'
         reload = True
         # train = True
         # train_pct = 0.8
@@ -375,7 +346,6 @@ def load_config(config):
         order_precision = 0
         exchange = 'KRAKEN'
         datasource = 'kr'
-        kraken_pair = 'XETHZUSD'
         reload = True
 #        train = True
 #         test_pct = 1

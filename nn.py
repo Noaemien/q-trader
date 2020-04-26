@@ -162,7 +162,7 @@ def runNN():
     global td
     global ds
     
-    ds = dl.load_data()
+    ds = dl.load_data(p.ticker, p.currency)
     ds = add_features(ds)
     
     # Separate input from output. Exclude last row
@@ -197,8 +197,8 @@ def runNN():
 def runNN1():
     global td
     global ds
-    
-    ds = dl.load_data()
+
+    ds = dl.load_data(p.ticker, p.currency)
 
     ds['VOL'] = ds['volume']/ds['volume'].rolling(window = p.vol_period).mean()
     ds['HH'] = ds['high']/ds['high'].rolling(window = p.hh_period).max() 
@@ -216,11 +216,8 @@ def runNN1():
     ds['Price_Rise'] = np.where(ds['DR'] > 1, 1, 0)
 
     if p.btc_data:
-        pair = p.kraken_pair
-        p.kraken_pair = 'XETHXXBT'
-        ds1 = dl.load_data()
-        p.kraken_pair = pair
-        ds = ds.join(ds1, rsuffix='_btc')
+        ds1 = dl.load_data('ETH', 'BTC')
+        ds = ds.join(ds1, on='time', rsuffix='_btc')
         ds['RSI_BTC'] = talib.RSI(ds['close_btc'].values, timeperiod=p.rsi_period)
         ds['BTC/ETH'] = ds['close'] / ds['close_btc']
         p.feature_list += ['RSI_BTC', 'BTC/ETH']
@@ -304,14 +301,14 @@ def runNN1():
     # Backtesting
     td = bt.run_backtest(td, file)
     print(str(get_signal_str()))
+    ds.to_csv(p.cfgdir+'/ds.csv')
+    td.to_csv(p.cfgdir+'/td.csv')
 
 
 def runModel(conf):
     p.load_config(conf)
     globals()[p.model_type]()
-        
 
-# PROD Year SR: 3.61 CCCAGG: 9747, Kraken: 5589
-# runModel('ETHUSDNN')
+
 # runModel('ETHUSDNN1')
 # td.to_csv('td.csv')

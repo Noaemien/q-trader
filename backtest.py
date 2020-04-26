@@ -226,4 +226,8 @@ def run_backtest(td, file):
     if p.charts: plot_chart(bt, file, 'date')
     if p.stats: show_stats(bt, tr)
 
+    stats.to_csv(p.cfgdir + '/stats.csv')
+    stats_mon.to_csv(p.cfgdir + '/stats_mon.csv')
+    tr.to_csv(p.cfgdir + '/tr.csv')
+
     return bt
