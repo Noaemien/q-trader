@@ -32,7 +32,9 @@ export AWS_REGION=You AWS  Region
 
 
 ****************************** Improvement Ideas *********************************************
-BUG: CC Data for BTC is incorrect
+# 2 models trading with 50/50 split
+
+# Deploy as Lambda to speed up execution
 
 # Deep Q-Learning for trading & position sizing
 https://github.com/lefnire/tforce_btc_trader
@@ -392,7 +394,9 @@ Do not trade when no trend (ADX)
 
 
 # ********************** Lessons Learned *************************************
-Trade Long Only. Short brings losses. 
+Trade Long Only. Short brings losses.
+Breakout brings losses
+Limit order brings losses
 
 Trading on Mercury Retrograde brings a lot of fakeouts and glitches. Must be avoided.
 

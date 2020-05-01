@@ -309,6 +309,6 @@ def runModel(conf):
     p.load_config(conf)
     globals()[p.model_type]()
 
-
+# runModel('ETHUSDNN')
 # runModel('ETHUSDNN1')
 # td.to_csv('td.csv')

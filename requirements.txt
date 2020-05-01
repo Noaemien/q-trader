@@ -6,17 +6,17 @@ astor==0.8.1
 async-timeout==3.0.1
 attrs==19.3.0
 cachetools==4.1.0
-ccxt==1.26.43
+ccxt==1.27.1
 certifi==2020.4.5.1
 cffi==1.14.0
 cfscrape==1.9.5
 chardet==3.0.4
-cryptography==2.9
+cryptography==2.9.2
 cycler==0.10.0
 future==0.18.2
 gast==0.2.2
 google-auth-oauthlib==0.4.1
-google-auth==1.14.0
+google-auth==1.14.1
 google-pasta==0.2.0
 grpcio==1.28.1
 h5py==2.10.0
@@ -32,7 +32,7 @@ markdown==3.2.1
 matplotlib==3.1.0
 more-itertools==8.2.0
 multidict==4.7.5
-numpy==1.18.2
+numpy==1.18.3
 oauthlib==3.1.0
 opt-einsum==3.2.1
 pandas-datareader==0.7.4
@@ -59,7 +59,7 @@ tensorboard==2.1.1
 tensorflow-estimator==2.1.0
 tensorflow==2.1.0
 termcolor==1.1.0
-urllib3==1.25.8
+urllib3==1.25.9
 werkzeug==1.0.1
 wheel==0.34.2 ; python_version >= '3'
 wrapt==1.12.1
