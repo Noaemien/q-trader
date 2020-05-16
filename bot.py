@@ -103,17 +103,13 @@ def test_execute():
     execute(s)
 
 
-# Signal Only
-#run('ETHBTCNN')
-#run('BTCUSDNN')
-
 # Trading
 try:
     t.init()
-    send('*** Old Model *** ', True)
-    run('ETHUSDNN')
     send('*** New Model *** ', True)
     run('ETHUSDNN1')
+    send('*** Old Model *** ', True)
+    run('ETHUSDNN')
 except Exception as e:
     send('An error has occurred. Please investigate!')
     send(e)

@@ -32,11 +32,12 @@ export AWS_REGION=You AWS  Region
 
 
 ****************************** Improvement Ideas *********************************************
-# 2 models trading with 50/50 split
-
-# Deploy as Lambda to speed up execution
+# Buy only when MACD is positive on hourly chart
+New Model / Hourly Trading / Astro Calendar / Cash in No Trend
 
 # Deep Q-Learning for trading & position sizing
+https://adventuresinmachinelearning.com/reinforcement-learning-tutorial-python-keras/
+https://towardsdatascience.com/trade-smarter-w-reinforcement-learning-a5e91163f315
 https://github.com/lefnire/tforce_btc_trader
 https://github.com/druce/rl/blob/master/Trading%20with%20RL.ipynb
 https://www.youtube.com/watch?v=_O4T5Vjmgeo
@@ -44,7 +45,18 @@ https://www.groundai.com/project/deep-reinforcement-learning-for-trading/1
 https://alphaarchitect.com/2020/02/26/reinforcement-learning-for-trading/
 https://towardsdatascience.com/a-blundering-guide-to-making-a-deep-actor-critic-bot-for-stock-trading-c3591f7e29c2
 
++ Replace Telegram with email
+
++ Use EMA instead of MA
++ Use EMA of DR as a feature
+
+# 2 models trading with 50/50 split
+
+# Deploy as Lambda to speed up execution
+
+
 # Feature Selection
+
 
 # Execution Strategy
 + Divide order to 24 chunks and place them with day open price 

@@ -192,9 +192,9 @@ def run_pnl(td, file):
 
     # Adjust signal based on past performance
     if p.adjust_signal:
-        # Best ASR: 0.988
         bt['ASR'] = bt.SR.rolling(10).mean().shift(1)
-        bt['signal'] = np.where(bt.ASR < 0.988, 'Cash', bt.signal)
+        # Best: 0.99
+        bt['signal'] = np.where(bt.ASR < 0.99, 'Cash', bt.signal)
         bt['SR'] = np.where(bt.signal == 'Cash', 1, bt.SR)
 
     bt['CSR'] = np.cumprod(bt.SR)

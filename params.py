@@ -309,6 +309,7 @@ def load_config(config):
     # !!! Use Market order to avoid unfilled order losses
     # !!! Scaler will be updated when tuning is run
     elif conf == 'ETHUSDNN1':
+        execute = True
         buy_sl = True
         min_equity = 0.02
         order_precision = 0
@@ -319,8 +320,8 @@ def load_config(config):
         # train = True
         # train_pct = 0.8
         # test_pct = 0.2
-        # test_pct = 1
-        test_bars = 365
+        test_pct = 1
+        # test_bars = 365
         units = 32
         epochs = 200
         batch_size = 100
@@ -336,7 +337,6 @@ def load_config(config):
         btc_data = True
         feature_list = ['VOL','HH','LL','DR','MA','MA2','STD','RSI','WR','DMA','MAR']
     elif conf == 'ETHUSDNN':
-        execute = True
         buy_sl = True
         min_equity = 0.02
         order_precision = 0
@@ -344,9 +344,9 @@ def load_config(config):
         datasource = 'kr'
         reload = True
 #        train = True
-#         test_pct = 1
+        test_pct = 1
 #         test_pct = 0.2
-        test_bars = 365
+#         test_bars = 365
         units = 32
         epochs = 20
         model = cfgdir+'/model.215'

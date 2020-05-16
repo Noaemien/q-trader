@@ -151,7 +151,9 @@ def gen_signal(ds, y_pred_val):
     if p.hold_signals is not None:
         td['signal'] = np.where(np.isin(td.y_pred_id, p.hold_signals), 'Cash', td.signal)
     if p.adjust_signal:
-        td['signal'] = np.where(td.ADX < 26, 'Cash', td.signal)
+        # td['signal'] = np.where(td.ADX < 26, 'Cash', td.signal)
+        # 25: best SR, 50 best Sortino
+        td['signal'] = np.where(td.ADX < 50, 'Cash', td.signal)
 
     return td
 
@@ -311,4 +313,3 @@ def runModel(conf):
 
 # runModel('ETHUSDNN')
 # runModel('ETHUSDNN1')
-# td.to_csv('td.csv')
