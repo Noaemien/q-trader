@@ -32,8 +32,14 @@ export AWS_REGION=You AWS  Region
 
 
 ****************************** Improvement Ideas *********************************************
+# Trend Strength:
++ MACD 
++ MA20: ? 
++ RSI: NO
+
+# Hyper Parameter Tuning
+
 # Buy only when MACD is positive on hourly chart
-New Model / Hourly Trading / Astro Calendar / Cash in No Trend
 
 # Deep Q-Learning for trading & position sizing
 https://adventuresinmachinelearning.com/reinforcement-learning-tutorial-python-keras/

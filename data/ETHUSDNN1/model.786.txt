@@ -1,0 +1,14 @@
+Strategy Return: 4.73
+Market Return: 0.88
+Sortino Ratio: 3.63
+Bars in Trade: 5
+Accuracy: 0.53
+Win Ratio: 0.53
+Avg Win: 0.04
+Avg Loss: 0.02
+Risk to Reward: 2.75
+Expectancy: 1.19
+Sharpe Ratio: 1.89
+Average Daily Return: 0.003
+SL: 0.01 TP: 0.00
+ETH/USD: Same Signal: Cash Open: 194.76

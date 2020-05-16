@@ -336,6 +336,7 @@ def load_config(config):
         model_type = 'runNN1'
         btc_data = True
         feature_list = ['VOL','HH','LL','DR','MA','MA2','STD','RSI','WR','DMA','MAR']
+        adx_period = 6
     elif conf == 'ETHUSDNN':
         buy_sl = True
         min_equity = 0.02

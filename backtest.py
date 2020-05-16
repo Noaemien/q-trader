@@ -120,7 +120,7 @@ def show_stats(td, trades):
 
 
 def run_pnl(td, file):
-    bt = td[['date', 'open', 'high', 'low', 'close', 'volume', 'signal', 'ATR']].copy()
+    bt = td[['date', 'open', 'high', 'low', 'close', 'volume', 'signal', 'ATR', 'ADX']].copy()
 
     # Calculate Pivot Points
     bt['PP'] = (bt.high + bt.low + bt.close) / 3
@@ -192,8 +192,10 @@ def run_pnl(td, file):
 
     # Adjust signal based on past performance
     if p.adjust_signal:
+        # 39: 4.78 SR, 3.65 Sortino
+        bt['signal'] = np.where(bt.ADX.shift(1) < 39, 'Cash', bt.signal)
+        bt['SR'] = np.where(bt.signal == 'Cash', 1, bt.SR)
         bt['ASR'] = bt.SR.rolling(10).mean().shift(1)
-        # Best: 0.99
         bt['signal'] = np.where(bt.ASR < 0.99, 'Cash', bt.signal)
         bt['SR'] = np.where(bt.signal == 'Cash', 1, bt.SR)
 
