@@ -108,6 +108,7 @@ def show_stats(td, trades):
     print('Market Return: %.2f' % td.CMR.iloc[-1])
     print('Sortino Ratio: %.2f' % srt)
     print('Bars in Trade: %.0f' % dur)
+    print('Buy Pct: %.2f' % (len(td[td.signal == 'Buy']) / len(td)))
     print('Accuracy: %.2f' % (len(td[td.y_pred.astype('int') == td.Price_Rise]) / len(td)))
     print('Win Ratio: %.2f' % win_ratio)
     print('Avg Win: %.2f' % avg_win)

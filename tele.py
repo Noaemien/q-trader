@@ -42,25 +42,30 @@ def authorized_only(command_handler: Callable[[Any, Bot, Update], None]) -> Call
         )
         try:
             return command_handler(*args, **kwargs)
-        except BaseException:
-            logger.exception('Exception occurred within Telegram module')
+        except Exception as e:
+            logger.exception('Exception occurred within Telegram module: ' + str(e))
 
     return wrapper
 
 
 def init():
     global updater
-    updater = Updater(token=s.telegram_token, workers=0)
-    #updater.dispatcher.add_handler(CommandHandler('status', status))
-    updater.start_polling(clean=True, bootstrap_retries=-1, timeout=300, read_latency=60)
+    try:
+        updater = Updater(token=s.telegram_token, workers=0)
+        #updater.dispatcher.add_handler(CommandHandler('status', status))
+        # updater.start_polling(clean=True, bootstrap_retries=-1, timeout=300, read_latency=60)
+    except Exception as e:
+        logger.exception('Exception occurred within Telegram module: '+str(e))
 
 
 def send_msg(msg, public=False):
-#    global updater
-    updater.bot.send_message(chat_id=s.telegram_chat_id, text=msg)
-    # Send message to another user
-    if public: updater.bot.send_message(chat_id=s.telegram_chat_id1, text=msg) 
+    try:
+        updater.bot.send_message(chat_id=s.telegram_chat_id, text=msg)
+        # Send message to another user
+        if public: updater.bot.send_message(chat_id=s.telegram_chat_id1, text=msg)
+    except Exception as e:
+        logger.exception('Exception occurred within Telegram module: ' + str(e))
+
 
 def cleanup():
-#    global updater
     updater.stop()
