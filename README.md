@@ -32,12 +32,16 @@ export AWS_REGION=You AWS  Region
 
 
 ****************************** Improvement Ideas *********************************************
+# HyperParameter Tuning
+https://scikit-optimize.github.io/stable/
+https://towardsdatascience.com/automated-machine-learning-hyperparameter-tuning-in-python-dfda59b72f8a
+
++ Replace Telegram with email
+
 # Trend Strength:
 + MACD 
-+ MA20: ? 
++ MA20: Disables Buy The Dip 
 + RSI: NO
-
-# Hyper Parameter Tuning
 
 # Buy only when MACD is positive on hourly chart
 
@@ -50,8 +54,6 @@ https://www.youtube.com/watch?v=_O4T5Vjmgeo
 https://www.groundai.com/project/deep-reinforcement-learning-for-trading/1
 https://alphaarchitect.com/2020/02/26/reinforcement-learning-for-trading/
 https://towardsdatascience.com/a-blundering-guide-to-making-a-deep-actor-critic-bot-for-stock-trading-c3591f7e29c2
-
-+ Replace Telegram with email
 
 + Use EMA instead of MA
 + Use EMA of DR as a feature
