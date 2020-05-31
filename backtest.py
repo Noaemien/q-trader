@@ -193,13 +193,13 @@ def run_pnl(td, file):
 
     # Adjust signal based on past performance
     if p.adjust_signal:
-        # 40/75: 6.45 SR, 4.68 Sortino
-        bt['signal'] = np.where(bt.ADX.shift(1) < 40, 'Cash', bt.signal)
+        # Best for KR data: 40/75: 6.45 SR, 4.68 Sortino
+        # bt['signal'] = np.where(bt.ADX.shift(1) < 40, 'Cash', bt.signal)
         bt['signal'] = np.where(bt.ADX.shift(1) > 75, 'Cash', bt.signal)
         bt['SR'] = np.where(bt.signal == 'Cash', 1, bt.SR)
-        bt['ASR'] = bt.SR.rolling(10).mean().shift(1)
-        bt['signal'] = np.where(bt.ASR < 0.99, 'Cash', bt.signal)
-        bt['SR'] = np.where(bt.signal == 'Cash', 1, bt.SR)
+        # bt['ASR'] = bt.SR.rolling(10).mean().shift(1)
+        # bt['signal'] = np.where(bt.ASR < 0.99, 'Cash', bt.signal)
+        # bt['SR'] = np.where(bt.signal == 'Cash', 1, bt.SR)
 
     bt['CSR'] = np.cumprod(bt.SR)
     bt['CMR'] = np.cumprod(bt.DR)

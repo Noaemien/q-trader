@@ -337,6 +337,8 @@ def load_config(config):
         btc_data = True
         feature_list = ['VOL','HH','LL','DR','MA','MA2','STD','RSI','WR','DMA','MAR']
         adx_period = 6
+        # Enabled by default (risk-off mode). More profitable if disabled in bull market
+        # adjust_signal = False
     elif conf == 'ETHUSDNN':
         buy_sl = True
         min_equity = 0.02
