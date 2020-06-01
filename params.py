@@ -75,13 +75,9 @@ def load_config(config):
     std_period = 7
     global wil_period
     wil_period = 7
-    global adx_period
-    adx_period = 6
     global exchange
     exchange = 'CCCAGG' # Average price from all exchanges
 #    exchange = 'KRAKEN'
-    global execute
-    execute = False
     global order_size # Order size in equity. 0 means to use order_pct
     order_size = 0
     global max_short # Max Order size for short position
@@ -169,6 +165,7 @@ def load_config(config):
     breakout = False
     global signal_scale # Used for signal grouping by y_pred_id 
     signal_scale = 1000
+    # Risk-off mode. More profitable if disabled in bull market. Enables ASR and ADX
     global adjust_signal
     adjust_signal = True
     global batch_size
@@ -177,6 +174,21 @@ def load_config(config):
     btc_data = False
     global position_sizing
     position_sizing = False
+    # ADX period for trend strength
+    global adx_period
+    adx_period = 6
+    # Min level of ADX to enter the trade
+    global adx_lo_threshold
+    adx_lo_threshold = 0  # Best for KR data: 40
+    # Max level of ADX to exit the trade
+    global adx_hi_threshold
+    adx_hi_threshold = 75  # Best for ALL data: 75
+    # Average strategy return period
+    global asr_period
+    asr_period = 10
+    # Min ASR to exit the trade
+    global asr_threshold
+    asr_threshold = 0
 
     if conf == 'BTCUSD': # R: 180.23 SR: 0.180 QL/BH R: 6.79 QL/BH SR: 1.80
 #        train = True
@@ -228,7 +240,6 @@ def load_config(config):
         signal_threshold = 1
         model = cfgdir+'/model.top'
         take_profit = 0.15  # Best TP 0.15: 1.77 No: 1.45
-#        execute = True
         limit_fee = 0.002 # Taker
         order_type = 'market'
         order_pct = 0.99 # Reserve 1% for slippage
@@ -260,7 +271,6 @@ def load_config(config):
         limit_fee = 0.0008 # Maker
 #        short = True
     elif conf == 'BTCUSDNN':
-#        execute = True
         breakout = True
         order_pct = 1
         short = True
@@ -302,14 +312,32 @@ def load_config(config):
         model_type = 'runNN1'
         btc_data = True
         feature_list = ['VOL', 'HH', 'LL', 'DR', 'MA', 'MA2', 'STD', 'RSI', 'WR', 'DMA', 'MAR']
+    elif conf == 'ETHUSDNN':
+        buy_sl = True
+        min_equity = 0.02
+        order_precision = 0
+        exchange = 'KRAKEN'
+        datasource = 'kr'
+        reload = True
+#        train = True
+        test_pct = 1
+#         test_pct = 0.2
+#         test_bars = 365
+        units = 32
+        epochs = 20
+        model = cfgdir+'/model.215'
+        order_type = 'market'
+        # Estimated fees including slippage and margin
+        limit_fee = 0.002
+        market_fee = 0.004
 # ****************** Active Models ************************************************
     # !!! Do not tune Active models - use new conf for tuning !!!
     # !!! DO NOT trade Short unless you want to get REKT !!!
     # !!! Do not us breakout !!!
     # !!! Use Market order to avoid unfilled order losses
     # !!! Scaler will be updated when tuning is run
-    elif conf == 'ETHUSDNN1':
-        execute = True
+    elif conf in ['ETHUSDNN1','ETHUSDNN1S']:
+        cfgdir = 'data/ETHUSDNN1'
         buy_sl = True
         min_equity = 0.02
         order_precision = 0
@@ -337,26 +365,10 @@ def load_config(config):
         btc_data = True
         feature_list = ['VOL','HH','LL','DR','MA','MA2','STD','RSI','WR','DMA','MAR']
         adx_period = 6
-        # Enabled by default (risk-off mode). More profitable if disabled in bull market
-        # adjust_signal = False
-    elif conf == 'ETHUSDNN':
-        buy_sl = True
-        min_equity = 0.02
-        order_precision = 0
-        exchange = 'KRAKEN'
-        datasource = 'kr'
-        reload = True
-#        train = True
-        test_pct = 1
-#         test_pct = 0.2
-#         test_bars = 365
-        units = 32
-        epochs = 20
-        model = cfgdir+'/model.215'
-        order_type = 'market'
-        # Estimated fees including slippage and margin
-        limit_fee = 0.002
-        market_fee = 0.004
+        # Safe-Mode
+        if conf == 'ETHUSDNN1S':
+            adx_lo_threshold = 40
+            asr_threshold = 0.99
 
     if order_type == 'market':
         limit_fee = market_fee

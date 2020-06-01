@@ -73,16 +73,17 @@ def execute(s):
         send('Breakout SL set at '+str(s['sl_price']), True)        
 
 
-def run(conf):
+def run(conf, live=False):
     done = False
     while not done:
         try:
             s = get_signal(conf)
             send(nn.get_signal_str(s), True)
-            if p.execute: execute(s)
+            if live:
+                execute(s)
             done = True
         except ccxt.NetworkError as e:
-            send('Network Error has occured. Retrying ...')
+            send('Network Error has occurred. Retrying ...')
             send(e)
             time.sleep(p.sleep_interval)
 
@@ -106,7 +107,9 @@ def test_execute():
 # Trading
 try:
     t.init()
-    send('*** New Model *** ', True)
+    send('*** New Model: Safe-Mode *** ', True)
+    run('ETHUSDNN1S', live=True)
+    send('*** New Model: Risk-Mode *** ', True)
     run('ETHUSDNN1')
     send('*** Old Model *** ', True)
     run('ETHUSDNN')
