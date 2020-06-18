@@ -338,7 +338,6 @@ def load_config(config):
     # !!! Scaler will be updated when tuning is run
     elif conf in ['ETHUSDNN1','ETHUSDNN1S']:
         cfgdir = 'data/ETHUSDNN1'
-        buy_sl = True
         min_equity = 0.02
         order_precision = 0
         exchange = 'KRAKEN'
@@ -369,6 +368,7 @@ def load_config(config):
         if conf == 'ETHUSDNN1S':
             adx_lo_threshold = 40
             asr_threshold = 0.99
+            buy_sl = True
 
     if order_type == 'market':
         limit_fee = market_fee

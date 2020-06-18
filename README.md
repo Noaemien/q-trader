@@ -32,6 +32,11 @@ export AWS_REGION=You AWS  Region
 
 
 ****************************** Improvement Ideas *********************************************
++ Stop training after N epochs, as the model can be randomly good
++ Feature Selection: Shapley value, correlation
++ Use different model (Random Forest / SVM)
++ AVG price rise for last N days as baseline model
+
 # HyperParameter Tuning
 https://scikit-optimize.github.io/stable/
 https://towardsdatascience.com/automated-machine-learning-hyperparameter-tuning-in-python-dfda59b72f8a

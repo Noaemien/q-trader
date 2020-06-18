@@ -309,3 +309,4 @@ def runModel(conf):
 
 # runModel('ETHUSDNN')
 # runModel('ETHUSDNN1')
+# runModel('ETHUSDNN1S')
