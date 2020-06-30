@@ -5,6 +5,7 @@ import stats as s
 import matplotlib.pyplot as plt
 import math
 import datetime as dt
+import talib
 
 
 def get_stats(ds):
@@ -120,8 +121,13 @@ def show_stats(td, trades):
     print('SL: %.2f TP: %.2f' % (slf, tpf))
 
 
-def run_pnl(td, file):
-    bt = td[['date', 'open', 'high', 'low', 'close', 'volume', 'signal', 'ATR', 'ADX']].copy()
+def run_pnl(td):
+    bt = td[['date', 'open', 'high', 'low', 'close', 'signal']].copy()
+    if p.position_sizing:
+        bt['size'] = td['size']
+
+    bt['ADX'] = talib.ADX(bt['high'].values, bt['low'].values, bt['close'].values, timeperiod=p.adx_period)
+    bt = bt.dropna()
 
     # Calculate Pivot Points
     bt['PP'] = (bt.high + bt.low + bt.close) / 3
@@ -165,7 +171,6 @@ def run_pnl(td, file):
     if p.short: bt['ctr'] = np.where(bt.signal == 'Sell', 2 - bt.close_price / bt.open_price, bt.ctr)
     # Breakout: Buy if SL is triggered for Sell trade
     if p.breakout: bt['ctr'] = np.where((bt.signal == 'Sell') & bt.sl, bt.ctr * (bt.close / bt.sl_price), bt.ctr)
-    if p.position_sizing: bt['ctr'] = (bt['ctr'] - 1)*bt.open_price*0.04/bt.ATR + 1
 
     # Margin Calculation. Assuming margin is used for short trades only
     bt['margin'] = 0
@@ -191,6 +196,9 @@ def run_pnl(td, file):
     bt['SR'] = np.where(bt.new_trade, bt.ctrf, bt.ctrf / bt.ctrf.shift(1))
     bt['DR'] = bt['close'] / bt['close'].shift(1)
 
+    if p.position_sizing:
+        bt['SR'] = (bt['SR'] - 1) * bt['size'] + 1
+
     # Adjust signal based on past performance
     if p.adjust_signal:
         bt['signal'] = np.where(bt.ADX.shift(1) < p.adx_lo_threshold, 'Cash', bt.signal)
@@ -207,11 +215,7 @@ def run_pnl(td, file):
 
 
 def run_backtest(td, file):
-    global stats
-    global stats_mon
-    global tr
-
-    bt = run_pnl(td, file)
+    bt = run_pnl(td)
 
     bt['y_pred'] = td.y_pred
     bt['y_pred_val'] = td.y_pred_val
@@ -232,5 +236,6 @@ def run_backtest(td, file):
     stats.to_csv(p.cfgdir + '/stats.csv')
     stats_mon.to_csv(p.cfgdir + '/stats_mon.csv')
     tr.to_csv(p.cfgdir + '/tr.csv')
+    bt.to_csv(p.cfgdir + '/bt.csv')
 
     return bt

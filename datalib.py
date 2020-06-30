@@ -17,6 +17,10 @@ import pandas as pd
 import pandas_datareader.data as web
 import quandl
 import numpy as np
+from flatlib.datetime import Datetime
+from flatlib.geopos import GeoPos
+from flatlib.chart import Chart
+import flatlib.const as flc
 
 
 def load_data_cc(ticker, currency):
@@ -80,6 +84,7 @@ def load_data(ticker, currency):
     if p.max_bars > 0: df = df.tail(p.max_bars).reset_index(drop=True)
 
     return df
+
 
 def load_prices():
     """ Loads historical price data and saves it in price.csv
@@ -270,5 +275,32 @@ def load_ticker(ticker):
     ds.to_csv('./data/'+ticker+'.csv')
 
 
-# load_ticker('ETH')
-# load_ticker('BTC')
+def get_calendar(start, end):
+    dates = pd.date_range(start=start, end=end)
+    calendar = []
+    for d in dates:
+        date = Datetime(d.strftime("%Y/%m/%d"), '12:00', '+00:00')
+        pos = GeoPos('51n23', '0w18')
+        chart = Chart(date, pos)
+        moon = chart.getObject(flc.MOON)
+        sun = chart.getObject(flc.SUN)
+        mercury = chart.getObject(flc.MERCURY)
+        venus = chart.getObject(flc.VENUS)
+        mars = chart.getObject(flc.MARS)
+        calendar.append({
+            'date': d,
+            'moon_lon': int(moon.lon),
+            'sun_lon': int(sun.lon),
+            'mercury_lon': int(mercury.lon),
+            'venus_lon': int(venus.lon),
+            'mars_lon': int(mars.lon)
+        })
+
+    calendar = pd.DataFrame(calendar)
+    return calendar
+
+
+def encode(data, col, max_val):
+    data[col + '_sin'] = np.sin(2 * np.pi * data[col]/max_val)
+    data[col + '_cos'] = np.cos(2 * np.pi * data[col]/max_val)
+    return data

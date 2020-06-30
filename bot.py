@@ -22,8 +22,8 @@ def send(msg, public=False):
 
 def get_signal(conf):
     while True:
-        nn.runModel(conf)
-        signal = nn.get_signal()
+        td = nn.runModel(conf)
+        signal = nn.get_signal(td)
         if dt.datetime.today() > signal['close_ts']:
             send('Signal has expired. Waiting for new one ...')
             time.sleep(p.sleep_interval)
@@ -107,10 +107,15 @@ def test_execute():
 # Trading
 try:
     t.init()
-    send('*** New Model: Safe-Mode *** ', True)
+    send('*** Safe Model *** ', True)
     run('ETHUSDNN1S', live=True)
-    send('*** New Model: Risk-Mode *** ', True)
+
+    send('*** Risk Model *** ', True)
     run('ETHUSDNN1')
+
+    send('*** Moon Model *** ', True)
+    run('ETHUSDNN2')
+
     send('*** Old Model *** ', True)
     run('ETHUSDNN')
 except Exception as e:

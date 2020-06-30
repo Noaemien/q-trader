@@ -285,33 +285,31 @@ def load_config(config):
         model = cfgdir+'/model.top'
         limit_fee = 0.0008 # Maker
     elif conf == 'ETHUSDNN2':
-        # breakout = True
-        # sell_sl = True
-        buy_sl = True
-        # short = True
         min_equity = 0.02
         order_precision = 0
         exchange = 'KRAKEN'
-        # datasource = 'kr'
+        datasource = 'kr'
         reload = True
-        train = True
-        train_pct = 0.8
-        test_pct = 0.2
-        # test_pct = 1
+        # train = True
+        test_pct = 1
         # test_bars = 365
         units = 32
-        epochs = 200
+        epochs = 30
         batch_size = 100
-        model = cfgdir + '/model.nn'
+        model = cfgdir + '/model.387'
         # Estimated fee including slippage and margin
         order_type = 'market'
         limit_fee = 0.002
         market_fee = 0.004
         signal_threshold = 1
         signal_scale = 100
-        model_type = 'runNN1'
-        btc_data = True
-        feature_list = ['VOL', 'HH', 'LL', 'DR', 'MA', 'MA2', 'STD', 'RSI', 'WR', 'DMA', 'MAR']
+        model_type = 'runNN2'
+        feature_list = [
+            'DR',
+            'ADR',
+            'moon_lon_sin',
+            'moon_lon_cos'
+        ]
     elif conf == 'ETHUSDNN':
         buy_sl = True
         min_equity = 0.02
@@ -330,6 +328,11 @@ def load_config(config):
         # Estimated fees including slippage and margin
         limit_fee = 0.002
         market_fee = 0.004
+    elif conf == 'ETHUSDENS':
+        model_type = 'run_ensemble'
+        signal_threshold = 0.5
+        adjust_signal = False
+        # position_sizing = True
 # ****************** Active Models ************************************************
     # !!! Do not tune Active models - use new conf for tuning !!!
     # !!! DO NOT trade Short unless you want to get REKT !!!
@@ -343,7 +346,7 @@ def load_config(config):
         exchange = 'KRAKEN'
         # Kraken data on CC is different from Kraken Exchange
         datasource = 'kr'
-        reload = True
+        reload = True  # Must be always set to True as BTC data needs to be loaded
         # train = True
         # train_pct = 0.8
         # test_pct = 0.2

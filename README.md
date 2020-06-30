@@ -32,6 +32,12 @@ export AWS_REGION=You AWS  Region
 
 
 ****************************** Improvement Ideas *********************************************
++ Start Container 1-2 min earlier
++ Fibonacci Numbers
++ 5 day ema / 20 day ema crossover
+  10 day ema / 30 day ema crossover
+  10 day ema / 50 day ema crossover
++ Train Model on both BTC and ETH
 + Stop training after N epochs, as the model can be randomly good
 + Feature Selection: Shapley value, correlation
 + Use different model (Random Forest / SVM)
