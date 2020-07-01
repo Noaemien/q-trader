@@ -107,11 +107,11 @@ def test_execute():
 # Trading
 try:
     t.init()
-    send('*** Safe Model *** ', True)
-    run('ETHUSDNN1S', live=True)
-
     send('*** Risk Model *** ', True)
-    run('ETHUSDNN1')
+    run('ETHUSDNN1', live=True)
+
+    send('*** Safe Model *** ', True)
+    run('ETHUSDNN1S')
 
     send('*** Moon Model *** ', True)
     run('ETHUSDNN2')
