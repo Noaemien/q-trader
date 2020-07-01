@@ -107,8 +107,11 @@ def test_execute():
 # Trading
 try:
     t.init()
+    send('*** Combo Model *** ', True)
+    run('ETHUSDENS', live=True)
+
     send('*** Risk Model *** ', True)
-    run('ETHUSDNN1', live=True)
+    run('ETHUSDNN1')
 
     send('*** Safe Model *** ', True)
     run('ETHUSDNN1S')

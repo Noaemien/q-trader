@@ -330,7 +330,7 @@ def load_config(config):
         market_fee = 0.004
     elif conf == 'ETHUSDENS':
         model_type = 'run_ensemble'
-        signal_threshold = 0.5
+        signal_threshold = 1
         adjust_signal = False
         # position_sizing = True
 # ****************** Active Models ************************************************
