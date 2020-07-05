@@ -354,14 +354,16 @@ def run_ensemble():
     # Reloading config after previous models
     p.load_config(conf)
 
-    d1 = d1[['date', 'open', 'high', 'low', 'close', 'signal']].rename(columns={'signal': 'signal_1'})
-    d2 = d2[['date', 'signal']].rename(columns={'signal': 'signal_2'})
-    d3 = d3[['date', 'signal']].rename(columns={'signal': 'signal_3'})
+    d1['signal_1'] = np.where(d1.signal == 'Buy', 1, 0)
+    d1 = d1[['date', 'open', 'high', 'low', 'close', 'signal_1']]
+    d2['signal_2'] = np.where(d2.signal == 'Buy', 1, 0)
+    d2 = d2[['date', 'signal_2']]
+    d3['signal_3'] = np.where(d3.signal == 'Buy', 1, 0)
+    d3 = d3[['date', 'signal_3']]
     ds = pd.merge(d1, d2, on='date', how='left')
     ds = pd.merge(ds, d3, on='date', how='left')
-    y_pred_val = (np.where(ds.signal_1 == 'Buy', 1, 0)
-                  + np.where(ds.signal_2 == 'Buy', 1, 0)
-                  + np.where(ds.signal_3 == 'Buy', 1, 0)) / 3
+
+    y_pred_val = (ds.signal_1 + ds.signal_2 + ds.signal_3) / 3
 
     ds = gen_signal(ds, y_pred_val)
     ds['size'] = ds['y_pred_val']

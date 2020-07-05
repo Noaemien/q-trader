@@ -1,0 +1,17 @@
+Kraken Data
+**************** Loaded Config for ETHUSDENS ****************
+Strategy Return: 6.46
+Market Return: 1.11
+Sortino Ratio: 6.62
+Bars in Trade: 8
+Buy Pct: 0.10
+Accuracy: 0.55
+Win Ratio: 0.66
+Avg Win: 0.05
+Avg Loss: 0.02
+Risk to Reward: 3.16
+Expectancy: 1.27
+Sharpe Ratio: 2.65
+Average Daily Return: 0.003
+SL: 0.00 TP: 0.00
+ETH/USD: Same Signal: Sell Open: 225.7 P/L: 0.0%

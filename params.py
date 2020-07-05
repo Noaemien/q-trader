@@ -284,32 +284,6 @@ def load_config(config):
         epochs = 30
         model = cfgdir+'/model.top'
         limit_fee = 0.0008 # Maker
-    elif conf == 'ETHUSDNN2':
-        min_equity = 0.02
-        order_precision = 0
-        exchange = 'KRAKEN'
-        datasource = 'kr'
-        reload = True
-        # train = True
-        test_pct = 1
-        # test_bars = 365
-        units = 32
-        epochs = 30
-        batch_size = 100
-        model = cfgdir + '/model.387'
-        # Estimated fee including slippage and margin
-        order_type = 'market'
-        limit_fee = 0.002
-        market_fee = 0.004
-        signal_threshold = 1
-        signal_scale = 100
-        model_type = 'runNN2'
-        feature_list = [
-            'DR',
-            'ADR',
-            'moon_lon_sin',
-            'moon_lon_cos'
-        ]
     elif conf == 'ETHUSDNN':
         buy_sl = True
         min_equity = 0.02
@@ -328,11 +302,6 @@ def load_config(config):
         # Estimated fees including slippage and margin
         limit_fee = 0.002
         market_fee = 0.004
-    elif conf == 'ETHUSDENS':
-        model_type = 'run_ensemble'
-        signal_threshold = 1
-        adjust_signal = False
-        # position_sizing = True
 # ****************** Active Models ************************************************
     # !!! Do not tune Active models - use new conf for tuning !!!
     # !!! DO NOT trade Short unless you want to get REKT !!!
@@ -372,6 +341,37 @@ def load_config(config):
             adx_lo_threshold = 40
             asr_threshold = 0.99
             buy_sl = True
+    elif conf == 'ETHUSDNN2':
+        min_equity = 0.02
+        order_precision = 0
+        exchange = 'KRAKEN'
+        datasource = 'kr'
+        reload = True
+        # train = True
+        test_pct = 1
+        # test_bars = 365
+        units = 32
+        epochs = 30
+        batch_size = 100
+        model = cfgdir + '/model.387'
+        # Estimated fee including slippage and margin
+        order_type = 'market'
+        limit_fee = 0.002
+        market_fee = 0.004
+        signal_threshold = 1
+        signal_scale = 100
+        model_type = 'runNN2'
+        feature_list = [
+            'DR',
+            'ADR',
+            'moon_lon_sin',
+            'moon_lon_cos'
+        ]
+    elif conf == 'ETHUSDENS':
+        model_type = 'run_ensemble'
+        signal_threshold = 0.5
+        adjust_signal = False
+        # position_sizing = True
 
     if order_type == 'market':
         limit_fee = market_fee
