@@ -368,10 +368,15 @@ def load_config(config):
             'moon_lon_cos'
         ]
     elif conf == 'ETHUSDENS':
+        # TODO: With market order not so profitable as before!
+        min_equity = 0.02
+        order_precision = 0
+        order_type = 'market'
+        limit_fee = 0.002
+        market_fee = 0.004
         model_type = 'run_ensemble'
         signal_threshold = 0.5
         adjust_signal = False
-        # position_sizing = True
 
     if order_type == 'market':
         limit_fee = market_fee

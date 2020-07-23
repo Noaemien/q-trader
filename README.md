@@ -32,6 +32,8 @@ export AWS_REGION=You AWS  Region
 
 
 ****************************** Improvement Ideas *********************************************
++ "The greater the deviation from the stock market high then the greater the buying opportunity presented".
+  Use ATH and ATL instead of rolling High and Low
 + Start Container 1-2 min earlier
 + Fibonacci Numbers
 + 5 day ema / 20 day ema crossover
