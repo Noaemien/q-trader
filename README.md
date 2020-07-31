@@ -32,9 +32,11 @@ export AWS_REGION=You AWS  Region
 
 
 ****************************** Improvement Ideas *********************************************
++ Market screener and multi-coin trading with universal strategy
++ Trade ETH/BTC when BTC is above 200MA
++ [Universal MA Strategy](https://medium.com/interdax/research-a-variable-moving-average-strategy-for-bitcoin-outperforms-hodling-def78b27d8eb)
 + "The greater the deviation from the stock market high then the greater the buying opportunity presented".
   Use ATH and ATL instead of rolling High and Low
-+ Start Container 1-2 min earlier
 + Fibonacci Numbers
 + 5 day ema / 20 day ema crossover
   10 day ema / 30 day ema crossover

@@ -182,7 +182,7 @@ def load_config(config):
     adx_lo_threshold = 0  # Best for KR data: 40
     # Max level of ADX to exit the trade
     global adx_hi_threshold
-    adx_hi_threshold = 75  # Best for ALL data: 75
+    adx_hi_threshold = 1000  # Disabled, 75 is best for some models
     # Average strategy return period
     global asr_period
     asr_period = 10
