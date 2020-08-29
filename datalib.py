@@ -145,6 +145,7 @@ def load_prices_dr():
     
     return df
 
+
 def quandl_stocks(symbol='NVDA', start_date=(2000, 1, 1), end_date=None):
     quandl.ApiConfig.api_key = s.quandl_key
  

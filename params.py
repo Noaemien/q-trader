@@ -302,6 +302,15 @@ def load_config(config):
         # Estimated fees including slippage and margin
         limit_fee = 0.002
         market_fee = 0.004
+    elif conf == 'ETHUSDROC':
+        model_type = 'runNN3'
+        reload = True
+        exchange = 'KRAKEN'
+        # datasource = 'kr'
+        adjust_signal = False
+        limit_fee = 0.002
+        market_fee = 0.004
+        order_type = 'market'
 # ****************** Active Models ************************************************
     # !!! Do not tune Active models - use new conf for tuning !!!
     # !!! DO NOT trade Short unless you want to get REKT !!!
@@ -368,7 +377,6 @@ def load_config(config):
             'moon_lon_cos'
         ]
     elif conf == 'ETHUSDENS':
-        # TODO: With market order not so profitable as before!
         min_equity = 0.02
         order_precision = 0
         order_type = 'market'

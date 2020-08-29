@@ -30,8 +30,18 @@ export AWS_REGION=You AWS  Region
 # Build and deploy Docker image to AWS ECR
 ./deploy.sh
 
+# Connect Jupyter environment to pipenv kernel:
+```
+python -m ipykernel install --user --display-name qtrader --name qtrader
+```
+
+# Start Jupyter Notebook:
+```
+jupyter notebook
+```
 
 ****************************** Improvement Ideas *********************************************
++ Check overfitting with rolling SR 
 + Market screener and multi-coin trading with universal strategy
 + Trade ETH/BTC when BTC is above 200MA
 + [Universal MA Strategy](https://medium.com/interdax/research-a-variable-moving-average-strategy-for-bitcoin-outperforms-hodling-def78b27d8eb)

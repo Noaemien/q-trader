@@ -141,7 +141,10 @@ def train_model(X_train, X_test, y_train, y_test, file):
 
 # TODO: Use Long / Short / Cash signals
 def gen_signal(ds, y_pred_val):
+    # The y_pred_val is for last N records in ds
+    # So last record in y_pred_val is valid for last record in ds
     td = ds.copy()
+    # As y_pred_val excludes last day the signal will be for next day
     td = td[-len(y_pred_val):]
     td['y_pred_val'] = y_pred_val
     td['y_pred'] = (td['y_pred_val'] >= p.signal_threshold)
@@ -186,7 +189,7 @@ def runNN():
     # Making prediction
     y_pred_val = nn.predict(X_test)
 
-    # Generating Signals
+    # Generating Signals.
     td = gen_signal(ds, y_pred_val)
 
     # Backtesting
@@ -197,7 +200,8 @@ def runNN():
 
 
 def train_test_nn(ds):
-    # Separate input from output. Exclude last row
+    # Separate input from output.
+    # Exclude last row as it may be incomplete
     X = ds[p.feature_list][:-1]
     y = ds[['DR']].shift(-1)[:-1]
 
@@ -254,11 +258,13 @@ def train_test_nn(ds):
         file = p.model
         nn = load_model(file)
 
-        # Making prediction
+    # Making prediction
+    # Note that X_test excludes last day as y_pred_val is for next day
     y_pred_val = nn.predict(X_test)
     y_pred_val = sc1.inverse_transform(y_pred_val)
 
     # Generating Signals
+    # As y_pred_val excludes the last day the signal will be shifted to next day
     td = gen_signal(ds, y_pred_val)
 
     # Backtesting
@@ -336,6 +342,7 @@ def agg_signal(signals):
     return res / len(signals)
 
 
+# TODO: Add parameter: list models to run
 def run_ensemble():
     global ds
     conf = p.conf
@@ -350,6 +357,7 @@ def run_ensemble():
     d1 = runModel('ETHUSDNN1')
     d2 = runModel('ETHUSDNN1S')
     d3 = runModel('ETHUSDNN2')
+    # d4 = runModel('ETHUSDROC')
 
     # Reloading config after previous models
     p.load_config(conf)
@@ -360,14 +368,37 @@ def run_ensemble():
     d2 = d2[['date', 'signal_2']]
     d3['signal_3'] = np.where(d3.signal == 'Buy', 1, 0)
     d3 = d3[['date', 'signal_3']]
+    # d4['signal_4'] = np.where(d4.signal == 'Buy', 1, 0)
+    # d4 = d4[['date', 'signal_4']]
     ds = pd.merge(d1, d2, on='date', how='left')
     ds = pd.merge(ds, d3, on='date', how='left')
+    # ds = pd.merge(ds, d4, on='date', how='left')
 
     y_pred_val = (ds.signal_1 + ds.signal_2 + ds.signal_3) / 3
+    # y_pred_val = (ds.signal_1 + ds.signal_2 + ds.signal_3 + ds.signal_4) / 4
 
     ds = gen_signal(ds, y_pred_val)
     ds['size'] = ds['y_pred_val']
     td = bt.run_backtest(ds, conf)
+
+    return td
+
+
+def runNN3():
+    global ds
+
+    ds = dl.load_data(p.ticker, p.currency)
+    ds['DR'] = ds['close'] / ds['close'].shift(1)
+    ds['ROC'] = talib.ROC(ds['close'].values, timeperiod=17)
+
+    ds['y_pred_val'] = np.where(ds.ROC > -5, 1, 0)
+    # Delay signal for 1 day
+    ds['y_pred_val'] = ds['y_pred_val'].shift(2)
+    td = gen_signal(ds, ds['y_pred_val'])
+
+    # Backtesting
+    td = bt.run_backtest(td, p.conf)
+    ds.to_csv(p.cfgdir + '/ds.csv')
 
     return td
 
@@ -377,3 +408,5 @@ def run_ensemble():
 # runModel('ETHUSDNN1S')
 # runModel('ETHUSDNN2')
 # runModel('ETHUSDENS')
+
+# runModel('ETHUSDROC')
