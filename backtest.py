@@ -83,7 +83,7 @@ def plot_chart(df, title, date_col='date'):
     td = df.dropna().copy()
     td = td.set_index(date_col)
     fig, ax = plt.subplots()
-    ax.set_yscale('log')
+    # ax.set_yscale('log')
     fig.autofmt_xdate()
     ax.plot(td['CSR'], color='g', label='Strategy Return')
     ax.plot(td['CMR'], color='r', label='Market Return')
