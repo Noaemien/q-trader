@@ -302,21 +302,25 @@ def load_config(config):
         # Estimated fees including slippage and margin
         limit_fee = 0.002
         market_fee = 0.004
-    elif conf == 'ETHUSDROC':
-        model_type = 'runNN3'
-        reload = True
-        exchange = 'KRAKEN'
-        # datasource = 'kr'
-        adjust_signal = False
-        limit_fee = 0.002
-        market_fee = 0.004
-        order_type = 'market'
-# ****************** Active Models ************************************************
+    # ****************** Active Models ************************************************
     # !!! Do not tune Active models - use new conf for tuning !!!
     # !!! DO NOT trade Short unless you want to get REKT !!!
     # !!! Do not us breakout !!!
     # !!! Use Market order to avoid unfilled order losses
     # !!! Scaler will be updated when tuning is run
+    elif conf == 'ETHUSDROC':
+        model_type = 'runNN3'
+        reload = True
+        exchange = 'KRAKEN'
+        datasource = 'kr'
+        adjust_signal = False
+        limit_fee = 0.002
+        market_fee = 0.004
+        order_type = 'market'
+        global roc_period
+        roc_period = 17
+        global roc_threshold
+        roc_threshold = -5
     elif conf in ['ETHUSDNN1','ETHUSDNN1S']:
         cfgdir = 'data/ETHUSDNN1'
         min_equity = 0.02

@@ -119,6 +119,9 @@ try:
     send('*** Moon Model *** ', True)
     run('ETHUSDNN2')
 
+    send('*** ROC Model *** ', True)
+    run('ETHUSDROC')
+
     send('*** Old Model *** ', True)
     run('ETHUSDNN')
 except Exception as e:

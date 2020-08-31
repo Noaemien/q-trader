@@ -334,14 +334,6 @@ def runModel(conf):
     return td
 
 
-def agg_signal(signals):
-    res = 0
-    for s in signals:
-        if s == 'Buy':
-            res += 1
-    return res / len(signals)
-
-
 # TODO: Add parameter: list models to run
 def run_ensemble():
     global ds
@@ -357,7 +349,7 @@ def run_ensemble():
     d1 = runModel('ETHUSDNN1')
     d2 = runModel('ETHUSDNN1S')
     d3 = runModel('ETHUSDNN2')
-    # d4 = runModel('ETHUSDROC')
+    d4 = runModel('ETHUSDROC')
 
     # Reloading config after previous models
     p.load_config(conf)
@@ -368,14 +360,14 @@ def run_ensemble():
     d2 = d2[['date', 'signal_2']]
     d3['signal_3'] = np.where(d3.signal == 'Buy', 1, 0)
     d3 = d3[['date', 'signal_3']]
-    # d4['signal_4'] = np.where(d4.signal == 'Buy', 1, 0)
-    # d4 = d4[['date', 'signal_4']]
+    d4['signal_4'] = np.where(d4.signal == 'Buy', 1, 0)
+    d4 = d4[['date', 'signal_4']]
     ds = pd.merge(d1, d2, on='date', how='left')
     ds = pd.merge(ds, d3, on='date', how='left')
-    # ds = pd.merge(ds, d4, on='date', how='left')
+    ds = pd.merge(ds, d4, on='date', how='left')
 
-    y_pred_val = (ds.signal_1 + ds.signal_2 + ds.signal_3) / 3
-    # y_pred_val = (ds.signal_1 + ds.signal_2 + ds.signal_3 + ds.signal_4) / 4
+    # y_pred_val = (ds.signal_1 + ds.signal_2 + ds.signal_3) / 3
+    y_pred_val = (ds.signal_1 + ds.signal_2 + ds.signal_3 + ds.signal_4) / 4
 
     ds = gen_signal(ds, y_pred_val)
     ds['size'] = ds['y_pred_val']
@@ -389,15 +381,15 @@ def runNN3():
 
     ds = dl.load_data(p.ticker, p.currency)
     ds['DR'] = ds['close'] / ds['close'].shift(1)
-    ds['ROC'] = talib.ROC(ds['close'].values, timeperiod=17)
+    ds['ROC'] = talib.ROC(ds['close'].values, timeperiod=p.roc_period)
 
-    ds['y_pred_val'] = np.where(ds.ROC > -5, 1, 0)
+    ds['y_pred_val'] = np.where(ds.ROC > p.roc_threshold, 1, 0)
     # Delay signal for 1 day
     ds['y_pred_val'] = ds['y_pred_val'].shift(2)
-    td = gen_signal(ds, ds['y_pred_val'])
+    ds = gen_signal(ds, ds['y_pred_val'])
 
     # Backtesting
-    td = bt.run_backtest(td, p.conf)
+    td = bt.run_backtest(ds, p.conf)
     ds.to_csv(p.cfgdir + '/ds.csv')
 
     return td
