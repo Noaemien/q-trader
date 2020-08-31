@@ -5,3 +5,4 @@ mysecrets.py
 *.pkl
 .ipynb_checkpoints
 .idea
+*.csv

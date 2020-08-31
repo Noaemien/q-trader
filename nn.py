@@ -334,48 +334,6 @@ def runModel(conf):
     return td
 
 
-# TODO: Add parameter: list models to run
-def run_ensemble():
-    global ds
-    conf = p.conf
-    # All In (from 0.5)
-    # Strategy Return: 128611.19
-    # Sortino Ratio: 8.35
-
-    # Position Sizing (from 0)
-    # Strategy Return: 71163.77
-    # Sortino Ratio: 8.73
-
-    d1 = runModel('ETHUSDNN1')
-    d2 = runModel('ETHUSDNN1S')
-    d3 = runModel('ETHUSDNN2')
-    d4 = runModel('ETHUSDROC')
-
-    # Reloading config after previous models
-    p.load_config(conf)
-
-    d1['signal_1'] = np.where(d1.signal == 'Buy', 1, 0)
-    d1 = d1[['date', 'open', 'high', 'low', 'close', 'signal_1']]
-    d2['signal_2'] = np.where(d2.signal == 'Buy', 1, 0)
-    d2 = d2[['date', 'signal_2']]
-    d3['signal_3'] = np.where(d3.signal == 'Buy', 1, 0)
-    d3 = d3[['date', 'signal_3']]
-    d4['signal_4'] = np.where(d4.signal == 'Buy', 1, 0)
-    d4 = d4[['date', 'signal_4']]
-    ds = pd.merge(d1, d2, on='date', how='left')
-    ds = pd.merge(ds, d3, on='date', how='left')
-    ds = pd.merge(ds, d4, on='date', how='left')
-
-    # y_pred_val = (ds.signal_1 + ds.signal_2 + ds.signal_3) / 3
-    y_pred_val = (ds.signal_1 + ds.signal_2 + ds.signal_3 + ds.signal_4) / 4
-
-    ds = gen_signal(ds, y_pred_val)
-    ds['size'] = ds['y_pred_val']
-    td = bt.run_backtest(ds, conf)
-
-    return td
-
-
 def runNN3():
     global ds
 
@@ -395,10 +353,45 @@ def runNN3():
     return td
 
 
+def run_ensemble():
+    global ds
+    conf = p.conf
+    # All In (from 0.5)
+    # Strategy Return: 128611.19
+    # Sortino Ratio: 8.35
+
+    # Position Sizing (from 0)
+    # Strategy Return: 71163.77
+    # Sortino Ratio: 8.73
+
+    i = 0
+    dd = pd.DataFrame()
+    for m in p.models:
+        d = runModel(m)
+        i += 1
+        signal = 'signal_'+str(i)
+        d[signal] = np.where(d.signal == 'Buy', 1, 0)
+        if i == 1:
+            dd = d[['date', 'open', 'high', 'low', 'close', 'signal_1']]
+        else:
+            dd = pd.merge(dd, d[['date', signal]], on='date')
+
+    y_pred_val = dd.iloc[:, -len(p.models):].sum(axis=1) / len(p.models)
+
+    # Reloading config after previous models
+    p.load_config(conf)
+
+    ds = gen_signal(dd, y_pred_val)
+    ds['size'] = ds['y_pred_val']
+    td = bt.run_backtest(ds, conf)
+
+    return td
+
+
 # runModel('ETHUSDNN')
 # runModel('ETHUSDNN1')
 # runModel('ETHUSDNN1S')
 # runModel('ETHUSDNN2')
-# runModel('ETHUSDENS')
-
 # runModel('ETHUSDROC')
+
+# runModel('ETHUSDENS')

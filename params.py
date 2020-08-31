@@ -76,8 +76,8 @@ def load_config(config):
     global wil_period
     wil_period = 7
     global exchange
-    exchange = 'CCCAGG' # Average price from all exchanges
-#    exchange = 'KRAKEN'
+    # exchange = 'CCCAGG' # Average price from all exchanges
+    exchange = 'KRAKEN'
     global order_size # Order size in equity. 0 means to use order_pct
     order_size = 0
     global max_short # Max Order size for short position
@@ -152,7 +152,8 @@ def load_config(config):
     feature_list = ['VOL','HH','LL','DR','MA','MA2','STD','RSI','WR','DMA','MAR'] 
 #    features ordered by importance: ['RSI','MA','MA2','STD','WR','MAR','HH','VOL','LL','DMA','DR']
     global datasource # Data Source for price data. Options cc: CryptoCompare, kr: Kraken, dr: DataReader, ql: Quandl
-    datasource = 'cc'
+    # datasource = 'cc'
+    datasource = 'kr'
     global loss # Loss function for NN: mse, binary_crossentropy, mean_absolute_error etc
     loss = 'mse'
     global signal_threshold
@@ -257,8 +258,6 @@ def load_config(config):
         signal_threshold = 1
     elif conf == 'ETHBTCNN':
         feature_list = ['MA','MA2']
-        exchange = 'KRAKEN'
-        datasource = 'kr'
         reload = True
 #        train = True
 #        test_bars = 272
@@ -274,8 +273,6 @@ def load_config(config):
         breakout = True
         order_pct = 1
         short = True
-        datasource = 'kr'
-        exchange = 'KRAKEN'
         reload = True
 #        train = True
 #        test_pct = 1
@@ -288,8 +285,6 @@ def load_config(config):
         buy_sl = True
         min_equity = 0.02
         order_precision = 0
-        exchange = 'KRAKEN'
-        datasource = 'kr'
         reload = True
 #        train = True
         test_pct = 1
@@ -311,8 +306,6 @@ def load_config(config):
     elif conf == 'ETHUSDROC':
         model_type = 'runNN3'
         reload = True
-        exchange = 'KRAKEN'
-        datasource = 'kr'
         adjust_signal = False
         limit_fee = 0.002
         market_fee = 0.004
@@ -325,9 +318,7 @@ def load_config(config):
         cfgdir = 'data/ETHUSDNN1'
         min_equity = 0.02
         order_precision = 0
-        exchange = 'KRAKEN'
         # Kraken data on CC is different from Kraken Exchange
-        datasource = 'kr'
         reload = True  # Must be always set to True as BTC data needs to be loaded
         # train = True
         # train_pct = 0.8
@@ -357,8 +348,6 @@ def load_config(config):
     elif conf == 'ETHUSDNN2':
         min_equity = 0.02
         order_precision = 0
-        exchange = 'KRAKEN'
-        datasource = 'kr'
         reload = True
         # train = True
         test_pct = 1
@@ -389,6 +378,9 @@ def load_config(config):
         model_type = 'run_ensemble'
         signal_threshold = 0.5
         adjust_signal = False
+        global models
+        models = ['ETHUSDNN1', 'ETHUSDNN1S', 'ETHUSDNN2'] # Best on full data, but may be overfit!
+        # models = ['ETHUSDNN2', 'ETHUSDROC'] # Best in last 720 days
 
     if order_type == 'market':
         limit_fee = market_fee
