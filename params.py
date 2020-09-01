@@ -379,8 +379,8 @@ def load_config(config):
         signal_threshold = 0.5
         adjust_signal = False
         global models
-        # models = ['ETHUSDNN1', 'ETHUSDNN1S', 'ETHUSDNN2']  # Best on full data, but may be overfit!
-        models = ['ETHUSDNN2', 'ETHUSDROC']  # Best in last 720 days
+        models = ['ETHUSDNN1', 'ETHUSDNN1S', 'ETHUSDNN2']  # Best on full data, great at bear market
+        # models = ['ETHUSDNN2', 'ETHUSDROC']  # Best in last 720 days
 
     if order_type == 'market':
         limit_fee = market_fee
